@@ -21,5 +21,18 @@
   "bugs": {
     "url": "https://github.com/hetianqi/blog/issues"
   },
-  "homepage": "https://github.com/hetianqi/blog#readme"
+  "homepage": "https://github.com/hetianqi/blog#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.5.0",
+    "webpack": "^1.13.0"
+  }
 }

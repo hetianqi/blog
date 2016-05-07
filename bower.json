@@ -1,0 +1,27 @@
+{
+  "name": "blog",
+  "description": "hetianqi's blog based on nodejs, express, react",
+  "main": "app.js",
+  "authors": [
+    "hetianqi"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "hetianqi",
+    "blog",
+    "nodejs",
+    "react"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/assets/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "^4.1.1"
+  }
+}
