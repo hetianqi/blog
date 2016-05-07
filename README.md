@@ -1,1 +1,1 @@
-# hetianqi's blog project based on nodejs, express, react
+# hetianqi's blog project
