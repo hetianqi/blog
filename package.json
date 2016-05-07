@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "hetianqi's blog based on nodejs, express, react",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hetianqi/blog.git"
+  },
+  "keywords": [
+    "hetianqi",
+    "blog",
+    "nodejs",
+    "react"
+  ],
+  "author": "hetianqi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hetianqi/blog/issues"
+  },
+  "homepage": "https://github.com/hetianqi/blog#readme"
+}
