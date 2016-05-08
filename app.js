@@ -1,21 +1,23 @@
 'use strict';
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var path = require('path');
 
 var app = express();
+var port = 3456;
 
-//设置视图和模板引擎
+// 设置视图和模板引擎
 app.set('views', './src/views');
 app.set('view engine', 'jade');
 
-//设置静态文件请求路径
-app.use(express.static(path.join(__dirname, '/src/assets/')));
+// 设置静态文件请求路径
+app.use(express.static('./src/assets/'));
 
-app.get('/', function (req, res) {
-	res.render('home/index');
+// 监听客户端请求端口
+app.listen(port, function () {
+	console.log('app started on port ' + port + '...');
 });
 
-app.listen('3000', function () {
-	console.log('app started on port 3000...');
-});
+// 注册路由
+require('./src/routes/route')(app);
