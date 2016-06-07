@@ -1,35 +1,32 @@
 {
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
+  // 环境配置
   "env": {
     "browser": true,
-    "amd": true,
-    "es6": true,
-    "node": true,
-    "mocha": true
+    "node": true
+  },
+  // 全局变量配置
+  "globals": {
+    "angular": true
   },
   "rules": {
-    "comma-dangle": 1,
-    "quotes": [ 1, "single" ],
-    "no-undef": 1,
-    "global-strict": 0,
-    "no-extra-semi": 1,
-    "no-underscore-dangle": 0,
-    "no-console": 1,
-    "no-unused-vars": 1,
-    "no-trailing-spaces": [1, { "skipBlankLines": true }],
-    "no-unreachable": 1,
-    "no-alert": 0,
-    "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1
+    // 双峰驼命名格式 
+    "camelcase": 2,
+    // if else while for do后面的代码块是否需要{ }包围，参数：  
+    //    multi  只有块中有多行语句时才需要{ }包围  
+    //    multi-line  只有块中有多行语句时才需要{ }包围, 但是块中的执行语句只有一行时，  
+    //                   块中的语句只能跟和if语句在同一行。if (foo) foo++; else doSomething();  
+    //    multi-or-nest 只有块中有多行语句时才需要{ }包围, 如果块中的执行语句只有一行，执行语句可以零另起一行也可以跟在if语句后面  
+    //    [2, "multi", "consistent"] 保持前后语句的{ }一致  
+    //    default: [2, "all"] 全都需要{ }包围  
+    "curly": [2, "all"],
+    "brace-style": [2, "1tbs"],
+    // 单引号
+    "quotes": [2, "single"],
+    // 分号必需
+    "semi": [2, "always"],
+    // 数组和对象键值对最后一个逗号， never参数：不能带末尾的逗号, always参数：必须带末尾的逗号
+    "comma-dangle": [2, "never"],
+    // 操作符两边必须有空格
+    "space-infix-ops": [2]
   }
 }
