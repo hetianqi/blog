@@ -33,6 +33,8 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-eslint": "^18.1.0",
     "grunt-nodemon": "^0.4.2",
-    "webpack": "^1.13.0"
+    "grunt-webpack": "^1.0.11",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }

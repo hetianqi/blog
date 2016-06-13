@@ -6,18 +6,17 @@ module.exports = function (grunt) {
 	// 配置任务
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		concurrent: {
-			tasks: ['nodemon', 'watch'],
-			options: {
-				logConcurrentOutput: true
-			}
-		},
-		watch: {
-			files: ['*.js', 'app/**/*.{js, html}'],
-			tasks: ['eslint'/*, 'uglify'*/]
-		},
 		eslint: {
-			files: ['*.js', 'app/**/*.js']
+			files: ['./*.js', 'app/controllers/*.js', 'app/libs/*.js', 'app/routes/*.js', 'app/web/js/src/*.js']
+		},
+		webpack: {
+			build: {
+				entry: './app/web/js/src/index.js',
+				output: {
+					path: './app/web/js/dist',
+					filename: 'bundle.js'
+				}
+			}
 		},
 		uglify: {
 			options: {
@@ -26,9 +25,18 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				files: {
-			    	src: 'app/web/assets/**/*.js',
-			    	dest: 'app/web/dist/'
+			    	'app/web/js/dist/bundle.min.js': 'app/web/js/dist/bundle.js'
 			    }
+			}
+		},
+		watch: {
+			front: {
+				files: ['app/web/js/src/*.js'],
+				tasks: ['eslint', 'webpack', 'uglify']
+			},
+			back: {
+				files: ['**/*.js'],
+				tasks: ['eslint']
 			}
 		},
 		nodemon: {
@@ -39,11 +47,14 @@ module.exports = function (grunt) {
 					ext: 'js',
 					watch: ['**/**', '!app/web/**/*'],
 					delayTime: 500,
-					env: {
-						PORT: config.port
-					},
 					cwd: __dirname
 				}
+			}
+		},
+		concurrent: {
+			tasks: ['nodemon', 'watch:front', 'watch:back'],
+			options: {
+				logConcurrentOutput: true
 			}
 		}
 	});
@@ -54,6 +65,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-webpack');
 
 	// 注册任务，default任务用grunt启动，其他任务用grunt taskName启动
 	grunt.registerTask('default', ['concurrent']);
