@@ -29,14 +29,28 @@ module.exports = function (grunt) {
 			    }
 			}
 		},
+		compass: {
+			dist: {
+				options: {
+			     	sassDir: 'app/web/css/base/',
+			     	cssDir: 'app/web/css/',
+			        outputStyle: 'expanded',	//生产环境改为compact或compressed
+			        noLineComments: true
+			    }
+			}
+		},
 		watch: {
 			front: {
 				files: ['app/web/js/src/*.js'],
 				tasks: ['eslint', 'webpack', 'uglify']
 			},
 			back: {
-				files: ['**/*.js'],
+				files: ['*.js', 'app/controllers/*.js', 'app/libs/*.js', 'app/routes/*.js'],
 				tasks: ['eslint']
+			},
+			compass: {
+				files: ['app/web/css/base/*.scss'],
+				tasks: ['compass:dist']
 			}
 		},
 		nodemon: {
@@ -52,7 +66,7 @@ module.exports = function (grunt) {
 			}
 		},
 		concurrent: {
-			tasks: ['nodemon', 'watch:front', 'watch:back'],
+			tasks: ['nodemon', 'watch:front', 'watch:back', 'watch:compass'],
 			options: {
 				logConcurrentOutput: true
 			}
@@ -66,6 +80,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-webpack');
+	grunt.loadNpmTasks('grunt-contrib-compass');
 
 	// 注册任务，default任务用grunt启动，其他任务用grunt taskName启动
 	grunt.registerTask('default', ['concurrent']);

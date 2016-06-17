@@ -1,0 +1,62 @@
+/*reset style*/
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif';
+    font-size: 14px;
+
+    line-height: 2;
+
+    color: #333;
+    background: #fff;
+}
+
+a {
+    color: #0088cc;
+    text-decoration: none;
+
+    &:hover {
+    	color: #005580;
+
+    	cursor: pointer;
+    	text-decoration: none;
+    }
+}
+
+ul, ol {
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+button {
+    border: 0;
+    outline: 0;
+
+	background-image: none;
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+.btn-bar {
+	display: block;
+
+	width: 22px;
+	height: 2px;
+
+	border-radius: 1px;
+
+	background-color: #fff;
+
+	+ .btn-bar {
+		margin-top: 4px;
+	}
+}
+
+button:hover .btn-bar {
+	background-color: #ddd;
+}

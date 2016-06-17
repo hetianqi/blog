@@ -7,4 +7,7 @@ logs
 node_modules
 
 # bower components
-app/web/plugins
+app/web/assets
+
+# scss-cache
+.sass-cache

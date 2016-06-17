@@ -1,1 +1,1 @@
-# hetianqi's blog project
+# blog project
