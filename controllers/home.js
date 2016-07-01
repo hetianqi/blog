@@ -1,15 +1,21 @@
+/**
+ * home.js 
+ */
+
 'use strict';
 
 var fs = require('fs');
-var marked = require('marked');
-var highlight = require('highlight.js');
+var render = require('../libs/render');
 
 // 设置markd选项
-marked.setOptions({
-	// 代码高亮设置
-	highlight: function (code) {
-		return highlight.highlightAuto(code).value;
-	}
+render.setOptions({
+	gfm: true,
+	pedantic: false,
+	sanitize: false,
+	tables: true,
+	breaks: true,
+	smartLists: true,
+	smartypants: true
 });
 
 // 首页
@@ -27,7 +33,7 @@ exports.getArticle = function (req, res) {
 		res.json({
 			code: 0,
 			message: 'ok',
-			data: marked(data.toString('utf8'))
+			data: render.marked(data.toString('utf8'))
 		});
 	});
 };
