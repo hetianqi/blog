@@ -1,0 +1,136 @@
+// 定义变量
+$pageW: 1000px;
+$sideW: 240px;
+
+@import '_common';
+@import '_keyframes';
+@import '_header';
+
+.headbar {
+	border-top: 3px solid #333;
+}
+
+.wrapper {
+	width: $pageW;
+	min-height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: -50px;
+	padding-bottom: 50px;
+	margin-top: -3px;
+	padding-top: 3px;
+}
+
+.main {
+	position: relative;
+}
+
+.aside {
+	position: static;
+	left: 0;
+	top: 0;
+
+	float: left;
+
+	width: $sideW;
+	margin-top: 320px;
+}
+
+.content {
+	margin: 40px 40px 40px $sideW + 40;
+}
+
+.site-author-avatar img {
+	display: block;
+
+	max-width: 120px;
+	margin: 0 auto;
+}
+
+.site-author-name {
+	margin: 0;
+
+	font-size: 20px;
+	font-weight: bold;
+	color: #222;
+	text-align: center;
+}
+
+.site-author-sign {
+	margin-bottom: 10px;
+	
+	color: #999;
+	text-align: center;
+}
+
+.follow-author {
+	padding: 0 20px;
+}
+
+.follow-author-item {
+	display: block;
+
+	float: left;
+
+	width: 50%;
+	padding: 5px 10px;
+
+	a {
+		font-size: 13px;
+		color: #666;
+
+		&:hover {
+			color: #222;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.wrapper {
+		width: auto;
+	}
+
+	.aside {
+		float: none;
+
+		width: auto;
+		margin: 15px;
+
+		overflow: hidden;
+	}
+
+	.site-author-avatar {
+		float: left;
+
+		width: 120px;
+	}
+
+	.site-author-info {
+		margin-top: 10px;
+		margin-left: 135px;
+	}
+
+	.site-author-name,
+	.site-author-sign {
+		text-align: left;
+	}
+
+	.site-author-sign {
+		margin-bottom: 0;
+	}
+
+	.follow-author {
+		padding: 0;
+	}
+
+	.follow-author-item {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.content {
+		margin: 40px 15px 0;
+	}
+}
+
+@import '_footer';

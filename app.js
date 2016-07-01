@@ -2,17 +2,16 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 var path = require('path');
-var config = require('./app/libs/config');
+var config = require('./libs/config');
 
 var app = express();
 
-// 设置视图和模板引擎
-// app.set('views', './app/web');
-// app.set('view engine', 'html');
-
 // 设置静态文件请求路径
-app.use(express.static('./app/web/'));
+app.use('/static', express.static('./app/'));
+// 设置网站图标
+app.use(favicon('./app/img/favicon.ico'));
 
 // 监听客户端请求端口
 app.listen(config.port, function () {
@@ -20,4 +19,4 @@ app.listen(config.port, function () {
 });
 
 // 注册路由
-require('./app/routes/route')(app);
+require('./routes/route')(app);

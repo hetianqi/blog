@@ -1,4 +1,8 @@
 /*reset style*/
+*, *:before, *:after, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html, body {
 	height: 100%;
 }
@@ -14,11 +18,11 @@ body {
 }
 
 a {
-    color: #0088cc;
+    color: #666;
     text-decoration: none;
 
     &:hover {
-    	color: #005580;
+    	color: #222;
 
     	cursor: pointer;
     	text-decoration: none;
@@ -42,6 +46,30 @@ button {
     cursor: pointer;
 }
 
+input, textarea, input[type="search"] {
+	outline: 0;
+    appearance: none;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+
+    &:focus {
+        border-color: #51a7e8;              
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(81,167,232,0.5);
+    }
+}
+
+input[type=checkbox], input[type=radio] {    
+    margin: 0;
+
+    vertical-align: middle;
+}
+
+p {
+    margin: 0 0 20px;
+}
+
 .btn-bar {
 	display: block;
 
@@ -59,4 +87,10 @@ button {
 
 button:hover .btn-bar {
 	background-color: #ddd;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
 }

@@ -28,6 +28,7 @@
     "angular-ui-router": "~0.3.1"
   },
   "devDependencies": {
-    "font-awesome": "~4.6.3"
+    "font-awesome": "~4.6.3",
+    "seajs": "~3.0.0"
   }
 }

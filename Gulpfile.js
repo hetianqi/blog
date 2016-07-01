@@ -10,13 +10,13 @@ var nodemon = require('gulp-nodemon');
 
 // 定义文件路径
 var filePath = {
-	frontJs: 'app/web/js/src/*.js',
-	backJs: ['app.js', 'app/controllers/*.js', 'app/libs/*.js', 'app/routes/*.js'],
-	entryJs: './app/web/js/src/index.js',
-	destJs: 'app/web/js/dist',
-	scssDir: 'app/web/css/base',
-	scss: 'app/web/css/base/*.scss',
-	destCss: 'app/web/css'
+	frontJs: 'app/js/src/*.js',
+	backJs: ['app.js', 'controllers/*.js', 'libs/*.js', 'routes/*.js'],
+	entryJs: './app/js/src/index.js',
+	destJs: 'app/js/dist',
+	scssDir: 'app/css/base',
+	scss: 'app/css/base/*.scss',
+	destCss: 'app/css'
 };
 
 // 重启node
@@ -38,6 +38,7 @@ gulp.task('eslint', function () {
 gulp.task('compileJs', function () {
 	return gulp.src(filePath.frontJs)
 		.pipe(webpack({
+			watch: true,
 			entry: {
 				index: filePath.entryJs
 			},

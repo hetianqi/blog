@@ -1,0 +1,92 @@
+/*reset style*/
+*, *:before, *:after, *::before, *::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body { font-family: 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif'; font-size: 14px; line-height: 2; color: #333; background: #fff; }
+
+a { color: #666; text-decoration: none; }
+a:hover { color: #222; cursor: pointer; text-decoration: none; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+button { border: 0; outline: 0; background-image: none; background-color: transparent; cursor: pointer; }
+
+input, textarea, input[type="search"] { outline: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+
+.form-control { border: 1px solid #ddd; }
+.form-control:focus { border-color: #51a7e8; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5); }
+
+input[type=checkbox], input[type=radio] { margin: 0; vertical-align: middle; }
+
+p { margin: 0 0 20px; }
+
+.btn-bar { display: block; width: 22px; height: 2px; border-radius: 1px; background-color: #fff; }
+.btn-bar + .btn-bar { margin-top: 4px; }
+
+button:hover .btn-bar { background-color: #ddd; }
+
+.clearfix:before, .clearfix:after { display: table; content: ""; }
+
+/*keyframes style*/
+@-webkit-keyframes heightAnimation { from { height: 0; }
+  to { height: auto; } }
+@keyframes heightAnimation { from { height: 0; }
+  to { height: auto; } }
+/*header style*/
+.header { position: relative; }
+
+.header-inner { position: absolute; left: 0; top: 0; z-index: 100; width: 240px; }
+.header-inner .brand { padding: 20px 0; color: #fff; background-color: #222; text-align: center; }
+.header-inner .brand a { color: #fff; font-family: 'Lobster Two', 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif'; font-size: 30px; }
+.header-inner .brand a:hover { color: #ddd; }
+.header-inner .nav-toggle-btn { display: none; padding: 10px 15px; background-image: none; }
+
+.nav { margin-top: 15px; }
+.nav .menu li { position: relative; padding: 5px 15px; }
+.nav .menu li a { display: block; color: #666; }
+.nav .menu li a:hover { color: #222; }
+.nav .menu li:hover { background-color: #eee; }
+.nav .menu li.active::after { position: absolute; right: 14px; top: 50%; content: ""; width: 6px; height: 6px; margin-top: -3px; background-color: #aaa; border-radius: 50%; }
+.nav .search { position: relative; padding: 5px; }
+.nav .search .fa { position: absolute; top: 12px; left: 15px; }
+.nav .search .search-input { display: block; width: 100%; height: 28px; padding: 5px 15px 5px 30px; line-height: normal; border-radius: 4px; }
+
+@media (max-width: 768px) { .header-inner { position: static; width: auto; }
+  .header-inner .brand { padding: 0; }
+  .header-inner .nav-toggle-btn { display: block; position: absolute; right: 15px; top: 13px; }
+  .nav { max-height: 0; margin-top: 0; overflow: hidden; transition: all .2s; }
+  .nav.in { max-height: 200px; } }
+.headbar { border-top: 3px solid #333; }
+
+.wrapper { width: 1000px; min-height: 100%; margin-left: auto; margin-right: auto; margin-bottom: -50px; padding-bottom: 50px; margin-top: -3px; padding-top: 3px; }
+
+.main { position: relative; }
+
+.aside { position: static; left: 0; top: 0; float: left; width: 240px; margin-top: 320px; }
+
+.content { margin: 40px 40px 40px 280px; }
+
+.site-author-avatar img { display: block; max-width: 120px; margin: 0 auto; }
+
+.site-author-name { margin: 0; font-size: 20px; font-weight: bold; color: #222; text-align: center; }
+
+.site-author-sign { margin-bottom: 10px; color: #999; text-align: center; }
+
+.follow-author { padding: 0 20px; }
+
+.follow-author-item { display: block; float: left; width: 50%; padding: 5px 10px; }
+.follow-author-item a { font-size: 13px; color: #666; }
+.follow-author-item a:hover { color: #222; }
+
+@media (max-width: 768px) { .wrapper { width: auto; }
+  .aside { float: none; width: auto; margin: 15px; overflow: hidden; }
+  .site-author-avatar { float: left; width: 120px; }
+  .site-author-info { margin-top: 10px; margin-left: 135px; }
+  .site-author-name, .site-author-sign { text-align: left; }
+  .site-author-sign { margin-bottom: 0; }
+  .follow-author { padding: 0; }
+  .follow-author-item { padding-left: 0; padding-right: 0; }
+  .content { margin: 40px 15px 0; } }
+/*footer style*/
+.footer { height: 50px; line-height: 50px; text-align: center; border-top: 1px solid #ccc; }
