@@ -1,10 +1,12 @@
 // 定义变量
 $pageW: 1000px;
 $sideW: 240px;
+$fontFamily: 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif';
 
 @import '_common';
 @import '_keyframes';
 @import '_header';
+@import '_highlight';
 
 .headbar {
 	border-top: 3px solid #333;
@@ -37,7 +39,7 @@ $sideW: 240px;
 }
 
 .content {
-	margin: 40px 40px 40px $sideW + 40;
+	margin: 40px 0 40px $sideW + 40;
 }
 
 .site-author-avatar img {
@@ -81,6 +83,39 @@ $sideW: 240px;
 
 		&:hover {
 			color: #222;
+		}
+	}
+}
+
+.post-header {
+	margin-bottom: 40px;
+}
+
+.post-title {
+	text-align: center;
+    word-break: break-word;
+
+	font-size: 26px;
+    font-weight: 300;
+}
+
+.post-meta {
+    margin-top: 3px;
+    color: #999;
+    font-size: 12px;
+    text-align: center;
+}
+
+.post-body {
+	text-align: justify;
+
+	font-family: $fontFamily;
+
+	a {
+		text-decoration: underline;
+
+		&:hover {
+			text-decoration: underline;
 		}
 	}
 }

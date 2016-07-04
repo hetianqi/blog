@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-	font-family: 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif';
+	font-family: $fontFamily;
     font-size: 14px;
 
     line-height: 2;

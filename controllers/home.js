@@ -20,9 +20,8 @@ render.setOptions({
 
 // 首页
 exports.getArticle = function (req, res) {
-	fs.readFile('./hello-world.md', function (err, data) {
+	fs.readFile('./test.md', function (err, data) {
 		if (err) {
-			console.log(err);
 			res.json({
 				code: 500,
 				message: 'an erro occured on server side'
@@ -33,7 +32,7 @@ exports.getArticle = function (req, res) {
 		res.json({
 			code: 0,
 			message: 'ok',
-			data: render.marked(data.toString('utf8'))
+			post: render(data.toString('utf8'))
 		});
 	});
 };

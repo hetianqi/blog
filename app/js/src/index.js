@@ -1,5 +1,5 @@
 /**
- * index.js 入口文件
+ * 入口文件
  * @author Emmett
  */
 
@@ -35,19 +35,11 @@ app.config([
 	}
 ]);
 
-// 页面头部控制器
-app.controller('headerCtrl', [
-	'$scope',
-	function ($scope) {
-		$scope.showNav = false;
-
-		$scope.toggleNav = function () {
-			$scope.showNav = !$scope.showNav;
-		};
-	}
-]);
+// 加载过滤器
+require('./filters/filters')(app);
 
 // 加载各个控制器
+require('./controllers/headerController')(app);
 require('./controllers/homeController')(app);
 
 // DOM ready

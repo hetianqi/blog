@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * index.js 入口文件
+	 * 入口文件
 	 * @author Emmett
 	 */
 
@@ -81,19 +81,11 @@
 		}
 	]);
 
-	// 页面头部控制器
-	app.controller('headerCtrl', [
-		'$scope',
-		function ($scope) {
-			$scope.showNav = false;
-
-			$scope.toggleNav = function () {
-				$scope.showNav = !$scope.showNav;
-			};
-		}
-	]);
+	// 加载过滤器
+	__webpack_require__(6)(app);
 
 	// 加载各个控制器
+	__webpack_require__(5)(app);
 	__webpack_require__(4)(app);
 
 	// DOM ready
@@ -35723,12 +35715,64 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	
+	/**
+	 * 首页控制器
+	 * @author Emmett
+	 */
+
 	module.exports = function (app) {
 		app.controller('homeCtrl', [
 			'$scope',
+			'$http',
+			'$sce',
+			function ($scope, $http, $sce) {
+				$http
+					.get('/home/getArticle')
+					.success(function (data) {
+						$scope.post = data.post;
+					});
+			}
+		]);
+	};
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	/**
+	 * header控制器
+	 * @author Emmett
+	 */
+
+	module.exports = function (app) {
+		app.controller('headerCtrl', [
+			'$scope',
 			function ($scope) {
-				$scope.greettingText = 'Hello, this is home page';
+				$scope.showNav = false;
+
+				$scope.toggleNav = function () {
+					$scope.showNav = !$scope.showNav;
+				};
+			}
+		]);
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/**
+	 * 过滤器集合
+	 * @author Emmett
+	 */
+
+	module.exports = function (app) {
+		app.filter('toTrustHtml', [
+			'$sce',
+			function ($sce) {
+				return function (text) {
+					return $sce.trustAsHtml(text);
+				};
 			}
 		]);
 	};

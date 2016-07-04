@@ -1,6 +1,12 @@
 <div ng-controller="homeCtrl">
 	<section class="post-list">
-		<article class="post"></article>
+		<article class="post">
+			<header class="post-header">
+				<h2 class="post-title">{{post.title}}</h2>
+				<div class="post-meta"></div>
+			</header>
+			<section class="post-body" ng-bind-html="post.content | toTrustHtml"></section>
+		</article>
 	</section>
 	<nav class="pagination"></nav>
 </div>
