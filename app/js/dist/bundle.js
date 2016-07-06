@@ -82,11 +82,11 @@
 	]);
 
 	// 加载过滤器
-	__webpack_require__(6)(app);
+	__webpack_require__(4)(app);
 
 	// 加载各个控制器
 	__webpack_require__(5)(app);
-	__webpack_require__(4)(app);
+	__webpack_require__(6)(app);
 
 	// DOM ready
 	angular.element(document).ready(function () {
@@ -35716,23 +35716,50 @@
 /***/ function(module, exports) {
 
 	/**
-	 * 首页控制器
+	 * 过滤器集合
 	 * @author Emmett
 	 */
 
 	module.exports = function (app) {
-		app.controller('homeCtrl', [
-			'$scope',
-			'$http',
-			'$sce',
-			function ($scope, $http, $sce) {
-				$http
-					.get('/home/getArticle')
-					.success(function (data) {
-						$scope.post = data.post;
-					});
-			}
-		]);
+		app
+			.filter('toTrustHtml', [
+				'$sce',
+				function ($sce) {
+					return function (text) {
+						return $sce.trustAsHtml(text);
+					};
+				}
+			])
+			.filter('toDate', [
+				function () {
+					return function (dateStr, format) {
+						format = format || 'YYYY-MM-DD hh:mm:ss';
+
+						var date = new Date(dateStr);
+			            var o = {
+			                'M+': date.getMonth() + 1,
+			                'D+': date.getDate(),
+			                'h+': date.getHours(),
+			                'm+': date.getMinutes(),
+			                's+': date.getSeconds(),
+			                'S': date.getMilliseconds()
+			            }
+
+			            // 格式化年份
+			            if (/(Y+)/.test(format)) {
+			                format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+			            }
+
+			            for (var k in o) {
+			                if (new RegExp('(' + k + ')').test(format)) {
+			                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(("" + o[k]).length));
+			                }
+			            }
+
+			            return format;
+					}
+				}
+			]);
 	};
 
 /***/ },
@@ -35762,17 +35789,21 @@
 /***/ function(module, exports) {
 
 	/**
-	 * 过滤器集合
+	 * 首页控制器
 	 * @author Emmett
 	 */
 
 	module.exports = function (app) {
-		app.filter('toTrustHtml', [
+		app.controller('homeCtrl', [
+			'$scope',
+			'$http',
 			'$sce',
-			function ($sce) {
-				return function (text) {
-					return $sce.trustAsHtml(text);
-				};
+			function ($scope, $http, $sce) {
+				$http
+					.get('/post/list')
+					.success(function (data) {
+						$scope.posts = data.posts;
+					});
 			}
 		]);
 	};

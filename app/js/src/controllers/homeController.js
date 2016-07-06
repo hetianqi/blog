@@ -10,9 +10,9 @@ module.exports = function (app) {
 		'$sce',
 		function ($scope, $http, $sce) {
 			$http
-				.get('/home/getArticle')
+				.get('/post/list')
 				.success(function (data) {
-					$scope.post = data.post;
+					$scope.posts = data.posts;
 				});
 		}
 	]);

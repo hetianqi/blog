@@ -1,12 +1,12 @@
-/*reset style*/
+/*common style*/
 *, *:before, *:after, *::before, *::after { box-sizing: border-box; }
 
 html, body { height: 100%; }
 
 body { font-family: "Monda", "PingFang SC", "Microsoft YaHei", "sans-serif"; font-size: 14px; line-height: 2; color: #333; background: #fff; }
 
-a { color: #666; text-decoration: none; }
-a:hover { color: #222; cursor: pointer; text-decoration: none; }
+a { border-bottom: 1px solid #666; color: #666; text-decoration: none; }
+a:hover { border-bottom-color: #222; color: #222; cursor: pointer; text-decoration: none; }
 
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
@@ -28,35 +28,14 @@ button:hover .btn-bar { background-color: #ddd; }
 
 .clearfix:before, .clearfix:after { display: table; content: ""; }
 
+.btn { display: inline-block; padding: 0 20px; border: 2px solid #555; border-radius: 0; font-size: 14px; text-decoration: none; color: #222; background: #fff; transition: background-color .2s ease-in-out; }
+.btn:hover { border-color: #222; color: #fff; background: #222; }
+
 /*keyframes style*/
 @-webkit-keyframes heightAnimation { from { height: 0; }
   to { height: auto; } }
 @keyframes heightAnimation { from { height: 0; }
   to { height: auto; } }
-/*header style*/
-.header { position: relative; }
-
-.header-inner { position: absolute; left: 0; top: 0; z-index: 100; width: 240px; }
-.header-inner .brand { padding: 20px 0; color: #fff; background-color: #222; text-align: center; }
-.header-inner .brand a { color: #fff; font-family: 'Lobster Two', 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif'; font-size: 30px; }
-.header-inner .brand a:hover { color: #ddd; }
-.header-inner .nav-toggle-btn { display: none; padding: 10px 15px; background-image: none; }
-
-.nav { margin-top: 15px; }
-.nav .menu li { position: relative; padding: 5px 15px; }
-.nav .menu li a { display: block; color: #666; }
-.nav .menu li a:hover { color: #222; }
-.nav .menu li:hover { background-color: #eee; }
-.nav .menu li.active::after { position: absolute; right: 14px; top: 50%; content: ""; width: 6px; height: 6px; margin-top: -3px; background-color: #aaa; border-radius: 50%; }
-.nav .search { position: relative; padding: 5px; }
-.nav .search .fa { position: absolute; top: 12px; left: 15px; }
-.nav .search .search-input { display: block; width: 100%; height: 28px; padding: 5px 15px 5px 30px; line-height: normal; border-radius: 4px; }
-
-@media (max-width: 768px) { .header-inner { position: static; width: auto; }
-  .header-inner .brand { padding: 0; }
-  .header-inner .nav-toggle-btn { display: block; position: absolute; right: 15px; top: 13px; }
-  .nav { max-height: 0; margin-top: 0; overflow: hidden; transition: all .2s; }
-  .nav.in { max-height: 200px; } }
 pre, .highlight { overflow: auto; margin: 20px 0; padding: 0; font-size: 13px; color: #4d4d4c; background: #f7f7f7; line-height: 1.6; }
 
 pre, code { font-family: 'PT Mono', consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace; }
@@ -107,6 +86,30 @@ pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .
 
 pre .keyword, pre .javascript .function { color: #8959a8; }
 
+/*header style*/
+.header { position: relative; }
+
+.header-inner { position: absolute; left: 0; top: 0; z-index: 100; width: 240px; }
+.header-inner .brand { padding: 20px 0; color: #fff; background-color: #222; text-align: center; }
+.header-inner .brand a { border-width: 0; color: #fff; font-family: 'Lobster Two', 'Monda', "PingFang SC", 'Microsoft YaHei', 'sans-serif'; font-size: 30px; }
+.header-inner .brand a:hover { color: #ddd; }
+.header-inner .nav-toggle-btn { display: none; padding: 10px 15px; background-image: none; }
+
+.nav { margin-top: 15px; }
+.nav .menu li { position: relative; padding: 5px 15px; }
+.nav .menu li a { display: block; border-width: 0; color: #666; }
+.nav .menu li a:hover { color: #222; }
+.nav .menu li:hover { background-color: #eee; }
+.nav .menu li.active::after { position: absolute; right: 14px; top: 50%; content: ""; width: 6px; height: 6px; margin-top: -3px; background-color: #aaa; border-radius: 50%; }
+.nav .search { position: relative; padding: 3px 0; }
+.nav .search .fa { position: absolute; top: 12px; left: 15px; }
+.nav .search .search-input { display: block; width: 100%; height: 32px; padding: 5px 15px 5px 35px; line-height: 20px; border-radius: 4px; }
+
+@media (max-width: 768px) { .header-inner { position: static; width: auto; }
+  .header-inner .brand { padding: 0; }
+  .header-inner .nav-toggle-btn { display: block; position: absolute; right: 15px; top: 13px; }
+  .nav { max-height: 0; margin-top: 0; overflow: hidden; transition: all .2s; }
+  .nav.in { max-height: 200px; } }
 .headbar { border-top: 3px solid #333; }
 
 .wrapper { width: 1000px; min-height: 100%; margin-left: auto; margin-right: auto; margin-bottom: -50px; padding-bottom: 50px; margin-top: -3px; padding-top: 3px; }
@@ -126,18 +129,26 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 .follow-author { padding: 0 20px; }
 
 .follow-author-item { display: block; float: left; width: 50%; padding: 5px 10px; }
-.follow-author-item a { font-size: 13px; color: #666; }
+.follow-author-item a { border-width: 0; font-size: 13px; color: #666; }
 .follow-author-item a:hover { color: #222; }
+
+.post { margin: 40px 0; }
 
 .post-header { margin-bottom: 40px; }
 
-.post-title { text-align: center; word-break: break-word; font-size: 26px; font-weight: 300; }
+.post-title { margin: 0; text-align: center; word-break: break-word; font-size: 26px; font-weight: 300; }
+.post-title a { border-width: 0; position: relative; }
+.post-title a:after { position: absolute; left: 0; top: 100%; content: ""; width: 100%; height: 2px; background-color: #222; -webkit-transform: scaleX(0); -ms-transform: scaleX(0); transform: scaleX(0); transition: all .2s; }
+.post-title a:hover:after { -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1); }
 
 .post-meta { margin-top: 3px; color: #999; font-size: 12px; text-align: center; }
 
+.post-meta-item { display: inline-block; }
+.post-meta-item + .post-meta-item:before { content: "|"; margin: 0 5px; }
+
 .post-body { text-align: justify; font-family: "Monda", "PingFang SC", "Microsoft YaHei", "sans-serif"; }
-.post-body a { text-decoration: underline; }
-.post-body a:hover { text-decoration: underline; }
+
+.post-more-link { margin-top: 40px; text-align: center; }
 
 @media (max-width: 768px) { .wrapper { width: auto; }
   .aside { float: none; width: auto; margin: 15px; overflow: hidden; }

@@ -8,42 +8,21 @@ var marked = require('marked');
 var assign = require('object-assign');
 var stripIndent = require('strip-indent');
 var util = require('hexo-util');
+var renderHelper = require('./renderHelper');
 
 var highlight = util.highlight;
 var stripHTML = util.stripHTML;
 var escapeHTML = util.escapeHTML;
 var MarkedRenderer = marked.Renderer;
 
-// 取markdown文件title的正则表达式
-var rTitle = /^(-{3,}|;{3,})\n([\s\S]+?)\n\1(?:$|\n([\s\S]*)$)/;
-var rEOL = /\r\n/g;
-
-// 拆分字符串，将字符串中的title取出
-function splitTitle(str) {
-    if (typeof str !== 'string') {
-        throw new TypeError('str is required!');
-    }
-
-    if (rTitle.test(str)) {
-        var match = str.match(rTitle);
-
-        return {
-            title: match[2],
-            _content: match[3] || '',
-            raw: str
-        };
-    }
-
-    return { _content: str, raw: str };
-}
-
+// highlight渲染类
 function Renderer() {
     MarkedRenderer.apply(this);
 
     this._headingId = {};
 }
 
-// 继承Render，重写一些渲染的方式
+// 继承原Renderer类，重写一些渲染的方式
 require('util').inherits(Renderer, MarkedRenderer);
 
 // 添加标题锚点
@@ -82,6 +61,13 @@ function anchorId(str) {
 
 // 设置代码高亮
 marked.setOptions({
+    gfm: true,
+    pedantic: false,
+    sanitize: false,
+    tables: true,
+    breaks: true,
+    smartLists: true,
+    smartypants: true,
     langPrefix: '',
     highlight: function (code, lang) {
         return highlight(stripIndent(code), {
@@ -93,11 +79,12 @@ marked.setOptions({
 });
 
 module.exports = function (markdownString, options) {
-    var data = splitTitle(markdownString.replace(rEOL, '\n'));
+    var data = renderHelper.splitTitle(markdownString);
 
     data.content = marked(data._content, assign({
         renderer: new Renderer()
     }, options));
+    renderHelper.excerptFilter(data);
 
     return data;
 };

@@ -1,4 +1,4 @@
-/*reset style*/
+/*common style*/
 *, *:before, *:after, *::before, *::after {
     box-sizing: border-box;
 }
@@ -18,10 +18,14 @@ body {
 }
 
 a {
+    border-bottom: 1px solid #666;
+    
     color: #666;
     text-decoration: none;
 
     &:hover {
+        border-bottom-color: #222;
+
     	color: #222;
 
     	cursor: pointer;
@@ -93,4 +97,26 @@ button:hover .btn-bar {
 .clearfix:after {
     display: table;
     content: "";
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 0 20px;
+    border: 2px solid #555;
+    border-radius: 0;
+
+    font-size: 14px;
+    text-decoration: none;
+    color: #222;
+    background: #fff;
+
+    transition: background-color .2s ease-in-out;
+
+    &:hover {
+        border-color: #222;
+
+        color: #fff;
+        background: #222;
+    }
 }
