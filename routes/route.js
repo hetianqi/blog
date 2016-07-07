@@ -1,3 +1,8 @@
+/**
+ * 后台路由管理
+ * @author Emmett
+ */
+
 'use strict';
 
 var path = require('path');

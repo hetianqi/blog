@@ -101,9 +101,9 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 .nav .menu li a:hover { color: #222; }
 .nav .menu li:hover { background-color: #eee; }
 .nav .menu li.active::after { position: absolute; right: 14px; top: 50%; content: ""; width: 6px; height: 6px; margin-top: -3px; background-color: #aaa; border-radius: 50%; }
-.nav .search { position: relative; padding: 3px 0; }
+.nav .search { position: relative; padding: 3px 5px; }
 .nav .search .fa { position: absolute; top: 12px; left: 15px; }
-.nav .search .search-input { display: block; width: 100%; height: 32px; padding: 5px 15px 5px 35px; line-height: 20px; border-radius: 4px; }
+.nav .search .search-input { display: block; width: 100%; height: 32px; padding: 5px 15px 5px 30px; line-height: 20px; border-radius: 4px; }
 
 @media (max-width: 768px) { .header-inner { position: static; width: auto; }
   .header-inner .brand { padding: 0; }

@@ -1,5 +1,6 @@
 /**
- * home.js 
+ * 文章控制器
+ * @author Emmett
  */
 
 'use strict';

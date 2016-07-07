@@ -35737,22 +35737,32 @@
 
 						var date = new Date(dateStr);
 			            var o = {
+			            	'Y+': date.getFullYear(),
 			                'M+': date.getMonth() + 1,
 			                'D+': date.getDate(),
 			                'h+': date.getHours(),
 			                'm+': date.getMinutes(),
 			                's+': date.getSeconds(),
 			                'S': date.getMilliseconds()
-			            }
+			            };
+			            var s;
 
-			            // 格式化年份
-			            if (/(Y+)/.test(format)) {
-			                format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
-			            }
-
+			            // 遍历替换每个匹配项
 			            for (var k in o) {
+			            	s = '' + o[k];
+
 			                if (new RegExp('(' + k + ')').test(format)) {
-			                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(("" + o[k]).length));
+			                    format = format.replace(RegExp.$1, function (match, index) {
+			                    	// 年份特殊处理
+			                    	if (k == 'Y+') {
+			                    		return s.substr(4 - match.length);
+			                    	}
+
+			                    	// 补足4位，然后截取需要的位数
+			                    	s = '00' + s;
+
+			                    	return s.substr(s.length - match.length);
+			                    });
 			                }
 			            }
 

@@ -6,7 +6,7 @@
 					<a href="" target="_blank">{{post.title}}</a>
 				</h2>
 				<div class="post-meta">
-					<span class="post-meta-item">发表于 {{post.createTime | toDate}}</span>
+					<span class="post-meta-item">发表于 {{post.createTime | toDate: 'YY-MM-DD h:m:s'}}</span>
 					<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
 					<span class="post-meta-item"><a href="">{{post.comment_count}} 条评论</a></span>
 					<span class="post-meta-item">阅读次数 {{post.read_count}}</span>
