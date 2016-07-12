@@ -51,11 +51,12 @@
 	.menu li {
 		position: relative;
 
-		padding: 5px 15px;
+		padding: 0 15px;
 
 		a {
 			display: block;
-
+			
+			padding: 5px 0;
 			border-width: 0;
 
 			color: #666;
@@ -63,10 +64,6 @@
 			&:hover {
 				color: #222;
 			}
-		}
-
-		&:hover {
-			background-color: #eee;
 		}
 
 		&.active::after {
@@ -88,7 +85,7 @@
 
 	.search {
 		position: relative;
-
+	
 		padding: 3px 5px;
 
 		.fa {

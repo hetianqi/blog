@@ -1,3 +1,9 @@
+/**
+ * Gulp配置文件
+ * @author Emmett <heron1991@163.com>
+ * @date 2016-07-07 16:46:49
+ */
+
 'use strict';
 
 var gulp = require('gulp');
@@ -70,4 +76,4 @@ gulp.task('compileCss', function () {
 });
 
 // 默认任务
-gulp.task('default', ['nodemon', 'eslint']);
+gulp.task('default', ['nodemon', 'eslint', 'compileJs', 'compileCss']);

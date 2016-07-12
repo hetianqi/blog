@@ -120,3 +120,58 @@ button:hover .btn-bar {
         background: #222;
     }
 }
+
+.pagination {
+    margin: 40px 0;
+
+    text-align: center;
+}
+
+.pager {
+    display: inline-block;
+
+    @extend .clearfix;
+
+    li {
+        float: left;
+        padding: 2px 12px;
+        margin-left: -1px;
+        border: 1px solid #e5e5e5;
+
+        text-align: center;
+        
+        transition: all .2s ease-in-out;
+
+        &:first-child {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        &:hover {
+            background-color: #e7e7e7;
+
+            cursor: pointer;
+        }
+
+        &.active,
+        &.active:hover {
+            color: #fff;
+            background-color: #a7a7a7;
+
+            cursor: default;
+        }
+
+        &.disabled,
+        &.disabled:hover {
+            color: #aaa;
+            background-color: transparent;
+
+            cursor: default;
+        }
+    }
+}

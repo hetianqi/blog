@@ -1,5 +1,7 @@
 /**
- * render.js 将markdown转为html字符串，并添加一些样式类（如代码高亮，行号显示等）
+ * 将markdown转为html字符串，并添加一些样式类（如代码高亮，行号显示等）
+ * @author Emmett <heron1991@163.com>
+ * @date 2016-07-07 16:46:49
  */
 
 'use strict';

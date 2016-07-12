@@ -1,6 +1,7 @@
 /**
- * 过滤器集合
- * @author Emmett
+ * angular过滤器
+ * @author Emmett <heron1991@163.com>
+ * @date 2016-07-07 16:46:49
  */
 
 module.exports = function (app) {
@@ -41,10 +42,7 @@ module.exports = function (app) {
 		                    		return s.substr(4 - match.length);
 		                    	}
 
-		                    	// 补足4位，然后截取需要的位数
-		                    	s = '00' + s;
-
-		                    	return s.substr(s.length - match.length);
+		                    	return match.length == 1 ? s : (s = '00' + s).substr(s.length - match.length);
 		                    });
 		                }
 		            }

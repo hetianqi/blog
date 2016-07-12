@@ -1,6 +1,7 @@
 /**
  * 文章控制器
- * @author Emmett
+ * @author Emmett <heron1991@163.com>
+ * @date 2016-07-07 16:46:49
  */
 
 'use strict';
@@ -23,7 +24,7 @@ exports.getList = function (req, res) {
 		res.end(JSON.stringify({
 			code: 0,
 			message: 'ok',
-			posts: JSON.parse(data.toString('utf-8'))
+			posts: JSON.parse(data.toString())
 		}));
 	});
 };
@@ -40,7 +41,7 @@ exports.test = function (req, res) {
 			return;
 		}
 
-		var post = render(data.toString('utf-8'));
+		var post = render(data.toString());
 
 		post._content = post._content.replace(/\"/g, '\\"');
 		post.content = post.content.replace(/\"/g, '\\"');

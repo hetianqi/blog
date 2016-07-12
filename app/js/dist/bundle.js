@@ -46,7 +46,8 @@
 
 	/**
 	 * 入口文件
-	 * @author Emmett
+	 * @author Emmett <heron1991@163.com>
+	 * @date 2016-07-07 16:46:49
 	 */
 
 	'use strict';
@@ -69,10 +70,12 @@
 					templateUrl: '/static/views/home.html'
 				})
 				.state('archive', {
-					url: '/archive'
+					url: '/archive',
+					templateUrl: '/static/views/archive.html'
 				})
 				.state('tag', {
-					url: '/tag'
+					url: '/tag',
+					templateUrl: '/static/views/tag.html'
 				})
 				.state('about', {
 					url: '/about',
@@ -84,9 +87,15 @@
 	// 加载过滤器
 	__webpack_require__(4)(app);
 
-	// 加载各个控制器
+	// 加载指令集
 	__webpack_require__(5)(app);
+
+	// 加载服务
 	__webpack_require__(6)(app);
+
+	// 加载各个控制器
+	__webpack_require__(7)(app);
+	__webpack_require__(8)(app);
 
 	// DOM ready
 	angular.element(document).ready(function () {
@@ -35716,8 +35725,9 @@
 /***/ function(module, exports) {
 
 	/**
-	 * 过滤器集合
-	 * @author Emmett
+	 * angular过滤器
+	 * @author Emmett <heron1991@163.com>
+	 * @date 2016-07-07 16:46:49
 	 */
 
 	module.exports = function (app) {
@@ -35758,10 +35768,7 @@
 			                    		return s.substr(4 - match.length);
 			                    	}
 
-			                    	// 补足4位，然后截取需要的位数
-			                    	s = '00' + s;
-
-			                    	return s.substr(s.length - match.length);
+			                    	return match.length == 1 ? s : (s = '00' + s).substr(s.length - match.length);
 			                    });
 			                }
 			            }
@@ -35777,8 +35784,90 @@
 /***/ function(module, exports) {
 
 	/**
+	 * angular自定义指令集
+	 * @author Emmett <heron1991@163.com>
+	 * @date 2016-07-07 16:46:49
+	 */
+
+	module.exports = function (app) {
+		// 分页
+		app.directive('pagination', function () {
+			return {
+				restrict: 'E',
+				replace: true,
+				templateUrl: '/static/views/pagination.tpl.html',
+				scope: {
+					totalPage: '=',		// 入参，总页码
+					onPageChange: '=',	// 入参，页码改变回调
+				},
+				link: function (scope, element, attributes) {
+					scope.start = 1;
+					scope.end = 1;
+					scope.current = 1;
+					scope.limit = 5;
+
+					// 改变页码
+					scope.changePage = function (pageIndex, notSkip) {
+						if (!notSkip) {
+							scope.current = pageIndex;
+							scope.onPageChange(pageIndex);
+						}
+					};
+
+					// 监视页码变化
+					scope.$watch('totalPage', setPage);
+					scope.$watch('current', setPage);
+
+					// 设置页码
+					function setPage() {
+						calcPage();
+
+						var pages = [];
+
+						for (var i = scope.start; i <= scope.end; i++) {
+							pages.push(i);
+						}
+
+						scope.pages = pages;
+					}
+
+					// 计算起始页
+					function calcPage() {
+						if (scope.current <= scope.start || scope.current == scope.totalPage) {
+				            scope.start = Math.max(1, scope.current - scope.limit + 1);
+				        } else if (scope.current >= scope.end) {
+				            scope.start = Math.min(scope.current, scope.totalPage - scope.limit + 1);
+				        }
+
+				        scope.end = Math.min(scope.start + scope.limit - 1, scope.totalPage);
+					}
+				}
+			};
+		});
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/**
+	 * angular自定义服务
+	 * @author Emmett <heron1991@163.com>
+	 * @date 2016-07-07 16:46:49
+	 */
+
+	module.exports = function (app) {
+		
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	/**
 	 * header控制器
-	 * @author Emmett
+	 * @author Emmett <heron1991@163.com>
+	 * @date 2016-07-07 16:46:49
 	 */
 
 	module.exports = function (app) {
@@ -35795,12 +35884,13 @@
 	};
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/**
 	 * 首页控制器
-	 * @author Emmett
+	 * @author Emmett <heron1991@163.com>
+	 * @date 2016-07-07 16:46:49
 	 */
 
 	module.exports = function (app) {
@@ -35812,8 +35902,17 @@
 				$http
 					.get('/post/list')
 					.success(function (data) {
+						$scope.total = 10;
 						$scope.posts = data.posts;
 					});
+
+				$scope.getPostList = function (p) {
+					$http
+						.get('/post/list?p=' + p)
+						.success(function (data) {
+							$scope.posts = data.posts;
+						});
+				}
 			}
 		]);
 	};

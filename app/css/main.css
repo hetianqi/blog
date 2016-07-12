@@ -26,10 +26,20 @@ p { margin: 0 0 20px; }
 
 button:hover .btn-bar { background-color: #ddd; }
 
-.clearfix:before, .clearfix:after { display: table; content: ""; }
+.clearfix:before, .pager:before, .clearfix:after, .pager:after { display: table; content: ""; }
 
 .btn { display: inline-block; padding: 0 20px; border: 2px solid #555; border-radius: 0; font-size: 14px; text-decoration: none; color: #222; background: #fff; transition: background-color .2s ease-in-out; }
 .btn:hover { border-color: #222; color: #fff; background: #222; }
+
+.pagination { margin: 40px 0; text-align: center; }
+
+.pager { display: inline-block; }
+.pager li { float: left; padding: 2px 12px; margin-left: -1px; border: 1px solid #e5e5e5; text-align: center; transition: all .2s ease-in-out; }
+.pager li:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+.pager li:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+.pager li:hover { background-color: #e7e7e7; cursor: pointer; }
+.pager li.active, .pager li.active:hover { color: #fff; background-color: #a7a7a7; cursor: default; }
+.pager li.disabled, .pager li.disabled:hover { color: #aaa; background-color: transparent; cursor: default; }
 
 /*keyframes style*/
 @-webkit-keyframes heightAnimation { from { height: 0; }
@@ -96,10 +106,9 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 .header-inner .nav-toggle-btn { display: none; padding: 10px 15px; background-image: none; }
 
 .nav { margin-top: 15px; }
-.nav .menu li { position: relative; padding: 5px 15px; }
-.nav .menu li a { display: block; border-width: 0; color: #666; }
+.nav .menu li { position: relative; padding: 0 15px; }
+.nav .menu li a { display: block; padding: 5px 0; border-width: 0; color: #666; }
 .nav .menu li a:hover { color: #222; }
-.nav .menu li:hover { background-color: #eee; }
 .nav .menu li.active::after { position: absolute; right: 14px; top: 50%; content: ""; width: 6px; height: 6px; margin-top: -3px; background-color: #aaa; border-radius: 50%; }
 .nav .search { position: relative; padding: 3px 5px; }
 .nav .search .fa { position: absolute; top: 12px; left: 15px; }
@@ -132,7 +141,7 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 .follow-author-item a { border-width: 0; font-size: 13px; color: #666; }
 .follow-author-item a:hover { color: #222; }
 
-.post { margin: 40px 0; }
+.post { padding: 40px 0; border-bottom: 1px solid #eee; }
 
 .post-header { margin-bottom: 40px; }
 

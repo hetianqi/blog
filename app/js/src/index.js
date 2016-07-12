@@ -1,6 +1,7 @@
 /**
  * 入口文件
- * @author Emmett
+ * @author Emmett <heron1991@163.com>
+ * @date 2016-07-07 16:46:49
  */
 
 'use strict';
@@ -23,10 +24,12 @@ app.config([
 				templateUrl: '/static/views/home.html'
 			})
 			.state('archive', {
-				url: '/archive'
+				url: '/archive',
+				templateUrl: '/static/views/archive.html'
 			})
 			.state('tag', {
-				url: '/tag'
+				url: '/tag',
+				templateUrl: '/static/views/tag.html'
 			})
 			.state('about', {
 				url: '/about',
@@ -37,6 +40,12 @@ app.config([
 
 // 加载过滤器
 require('./filters/filters')(app);
+
+// 加载指令集
+require('./directives/directives')(app);
+
+// 加载服务
+require('./services/services')(app);
 
 // 加载各个控制器
 require('./controllers/headerController')(app);

@@ -1,6 +1,7 @@
 /**
- * 后台路由管理
- * @author Emmett
+ * 后台路由配置
+ * @author Emmett <heron1991@163.com>
+ * @date 2016-07-07 16:46:49
  */
 
 'use strict';
