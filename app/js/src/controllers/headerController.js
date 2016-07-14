@@ -1,8 +1,10 @@
 /**
  * header控制器
  * @author Emmett <heron1991@163.com>
- * @date 2016-07-07 16:46:49
+ * @date 2016-07-03 11:20:35
  */
+
+'use strict';
 
 module.exports = function (app) {
 	app.controller('headerCtrl', [

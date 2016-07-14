@@ -69,7 +69,7 @@ gulp.task('compileCss', function () {
 		    	style: 'compact'
 		    }))
 		    .pipe(autoprefixer({
-				browsers: ['last 5 versions', 'ie 8', 'ie 9']
+				browsers: ['last 5 versions', 'ie 9']
 		    }))
 			.pipe(gulp.dest(filePath.destCss));
 	}

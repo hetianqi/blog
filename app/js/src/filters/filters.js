@@ -4,8 +4,11 @@
  * @date 2016-07-07 16:46:49
  */
 
+'use strict';
+
 module.exports = function (app) {
 	app
+		// 将html转换为可信任的字符串输出到页面
 		.filter('toTrustHtml', [
 			'$sce',
 			function ($sce) {
@@ -14,7 +17,8 @@ module.exports = function (app) {
 				};
 			}
 		])
-		.filter('toDate', [
+		// 格式化时间
+		.filter('formatDate', [
 			function () {
 				return function (dateStr, format) {
 					format = format || 'YYYY-MM-DD hh:mm:ss';

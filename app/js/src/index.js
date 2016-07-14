@@ -7,36 +7,13 @@
 'use strict';
 
 var angular = require('../../assets/angular');
-var uiRouter = require('../../assets/angular-ui-router/release/angular-ui-router');
+var uiRouter = require('../../assets/angular-ui-router/release/angular-ui-router.min');
+var ngResource = require('../../assets/angular-resource');
 
-var app = angular.module('app', [uiRouter]);
+var app = angular.module('app', [uiRouter, ngResource]);
 
-// 配置路由
-app.config([
-	'$stateProvider', 
-	'$urlRouterProvider', 
-	function ($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/');
-
-		$stateProvider
-			.state('home', {
-				url: '/',
-				templateUrl: '/static/views/home.html'
-			})
-			.state('archive', {
-				url: '/archive',
-				templateUrl: '/static/views/archive.html'
-			})
-			.state('tag', {
-				url: '/tag',
-				templateUrl: '/static/views/tag.html'
-			})
-			.state('about', {
-				url: '/about',
-				templateUrl: '/static/views/about.html'
-			});
-	}
-]);
+// 加载路由
+require('./routers/routers')(app);
 
 // 加载过滤器
 require('./filters/filters')(app);

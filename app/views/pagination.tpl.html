@@ -1,8 +1,0 @@
-<nav class="pagination">
-	<ul class="pager">
-		<li ng-if="current != 1" ng-click="changePage(1)" title="首页">«</li>
-		<li ng-repeat="page in pages" ng-class="{ active: page == current }" ng-click="changePage(page, page == current)">{{page}}</li>
-		<li class="disabled" ng-if="end < totalPage">...</li>
-		<li ng-if="current != totalPage" ng-click="changePage(totalPage)" title="尾页">»</li>
-	</ul>
-</nav>

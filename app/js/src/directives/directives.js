@@ -4,29 +4,27 @@
  * @date 2016-07-07 16:46:49
  */
 
+'use strict';
+
 module.exports = function (app) {
 	// 分页
-	app.directive('pagination', function () {
-		return {
-			restrict: 'E',
-			replace: true,
-			templateUrl: '/static/views/pagination.tpl.html',
-			scope: {
-				totalPage: '=',		// 入参，总页码
-				onPageChange: '=',	// 入参，页码改变回调
-			},
-			link: function (scope, element, attributes) {
+	app.directive('pagination', [
+		function () {
+			function link(scope, element, attributes) {
 				scope.start = 1;
 				scope.end = 1;
 				scope.current = 1;
 				scope.limit = 5;
 
 				// 改变页码
-				scope.changePage = function (pageIndex, notSkip) {
-					if (!notSkip) {
+				scope.changePage = function (pageIndex) {
+					scope.onPageChange(pageIndex, function (isGotoTop) {
 						scope.current = pageIndex;
-						scope.onPageChange(pageIndex);
-					}
+
+						if (isGotoTop) {
+							document.querySelector('body').scrollTop = 0;
+						}
+					});
 				};
 
 				// 监视页码变化
@@ -57,6 +55,17 @@ module.exports = function (app) {
 			        scope.end = Math.min(scope.start + scope.limit - 1, scope.totalPage);
 				}
 			}
-		};
-	});
+
+			return {
+				restrict: 'E',
+				replace: true,
+				templateUrl: 'pagination.tpl.html',
+				scope: {
+					totalPage: '=',		// 入参，总页码
+					onPageChange: '=',	// 入参，页码改变回调
+				},
+				link: link
+			};
+		}
+	]);
 };

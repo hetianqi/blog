@@ -4,26 +4,32 @@
  * @date 2016-07-07 16:46:49
  */
 
+'use strict';
+
 module.exports = function (app) {
 	app.controller('homeCtrl', [
 		'$scope',
 		'$http',
-		'$sce',
-		function ($scope, $http, $sce) {
-			$http
-				.get('/post/list')
-				.success(function (data) {
-					$scope.total = 10;
-					$scope.posts = data.posts;
-				});
+		'$q',
+		'headbar',
+		'Post',
+		function ($scope, $http, $q, headbar, Post) {
+			$scope.getPostList = function (p, setPageIndex) {
+				headbar.show();
 
-			$scope.getPostList = function (p) {
-				$http
-					.get('/post/list?p=' + p)
-					.success(function (data) {
-						$scope.posts = data.posts;
-					});
-			}
+				Post.query({ p: p }, function (data) {
+					headbar.hide();
+					
+					$scope.posts = data.posts;
+					$scope.totalPage = data.totalPage;
+
+					if (angular.isFunction(setPageIndex)) {
+						setPageIndex(true);
+					}
+				});
+			};
+
+			$scope.getPostList(1);
 		}
 	]);
 };
