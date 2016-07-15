@@ -32475,10 +32475,6 @@
 						url: '/',
 						templateUrl: 'home.html'
 					})
-					.state('posts.detail', {
-						url: 'posts/:postId',
-						templateUrl: '',
-					})
 					.state('archive', {
 						url: '/archive',
 						templateUrl: 'archive.html'
@@ -32490,6 +32486,10 @@
 					.state('about', {
 						url: '/about',
 						templateUrl: 'about.html'
+					})
+					.state('detail', {
+						url: '/posts/:postId',
+						templateUrl: 'posts.detail.html',
 					});
 			}
 		]);

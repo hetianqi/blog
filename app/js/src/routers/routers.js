@@ -18,10 +18,6 @@ module.exports = function (app) {
 					url: '/',
 					templateUrl: 'home.html'
 				})
-				.state('posts.detail', {
-					url: 'posts/:postId',
-					templateUrl: '',
-				})
 				.state('archive', {
 					url: '/archive',
 					templateUrl: 'archive.html'
@@ -33,6 +29,10 @@ module.exports = function (app) {
 				.state('about', {
 					url: '/about',
 					templateUrl: 'about.html'
+				})
+				.state('detail', {
+					url: '/posts/:postId',
+					templateUrl: 'posts.detail.html',
 				});
 		}
 	]);
