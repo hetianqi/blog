@@ -12,7 +12,7 @@ var cheerio = require('cheerio');
 
 exports.index = function (req, res) {
 	try {
-		// 先将页面和模板载入到index.html页面一同发送到浏览器
+		// 将页面和模板载入到index.html页面一同发送到浏览器
 		var $ = cheerio.load(fs.readFileSync('./app/index.html', 'utf8'));
 		var viewPath = './app/views/';
 		var templatePath = './app/views/templates/';
@@ -38,4 +38,8 @@ exports.index = function (req, res) {
 	} catch (err) {
 		res.status(500).end(err.toString());
 	}
+};
+
+exports.error404 = function (req, res) {
+	res.status(404).end('Not Fount');
 };

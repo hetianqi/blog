@@ -18,7 +18,5 @@ module.exports = function (app) {
 	app.get('/post/test', post.test);
 
 	// 404返回结果
-	app.all('*', function (req, res) {
-		res.status(404).end();
-	});
+	app.all('*', pageRender.error404);
 };
