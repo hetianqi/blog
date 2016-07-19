@@ -1,24 +1,22 @@
-<script type="text/ng-template" id="home.html">
-	<div ng-controller="homeCtrl">
-		<section class="post-list">
-			<article class="post" ng-repeat="post in posts">
-				<header class="post-header">
-					<h2 class="post-title">
-						<a ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
-					</h2>
-					<div class="post-meta">
-						<span class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD hh:mm:ss'}}</span>
-						<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
-						<span class="post-meta-item"><a href="">{{post.comment_count}} 条评论</a></span>
-						<span class="post-meta-item">阅读次数 {{post.read_count}}</span>
-					</div>
-				</header>
-				<section class="post-body" ng-bind-html="post.excerpt | toTrustHtml"></section>
-				<div class="post-more-link">
-					<a class="btn" ui-sref="detail({postId:post.id})" target="_blank">阅读全文</a>
+<div ng-controller="postCtrl">
+	<section class="post-list">
+		<article class="post" ng-repeat="post in posts">
+			<header class="post-header">
+				<h1 class="post-title">
+					<a ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
+				</h1>
+				<div class="post-meta">
+					<span class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD hh:mm:ss'}}</span>
+					<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
+					<span class="post-meta-item"><a href="">{{post.comment_count}} 条评论</a></span>
+					<span class="post-meta-item">阅读次数 {{post.read_count}}</span>
 				</div>
-			</article>
-		</section>
-		<pagination total-page="totalPage" on-page-change="getPostList"></pagination>
-	</div>
-</script>
+			</header>
+			<section class="post-body" ng-bind-html="post.excerpt | toTrustHtml"></section>
+			<div class="post-more-link">
+				<a class="btn" ui-sref="detail({postId:post.id})" target="_blank">阅读全文</a>
+			</div>
+		</article>
+	</section>
+	<pagination total-page="totalPage" on-page-change="getPostList"></pagination>
+</div>

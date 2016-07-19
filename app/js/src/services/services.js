@@ -17,6 +17,8 @@ module.exports = function (app) {
 				var delay = 400;
 				var setWidthPromise, resetPromise;
 
+				var d
+
 				// 设置宽度，每个间隔加3%，到达90%时不再加
 				function setWidth() {
 					setWidthPromise = $timeout(function () {

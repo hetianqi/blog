@@ -26,6 +26,28 @@ exports.getList = function (req, res) {
 	});
 };
 
+// 获取文章列表
+exports.getById = function (req, res) {
+	fs.readFile('./data/postList.json', 'utf8', function (err, data) {
+		if (err) {
+			return utils.handleError(res, err);
+		}
+
+		var posts = JSON.parse(data);
+		var post;
+
+		posts.forEach(function (item) {
+			if (item.id == req.params.postId) {
+				post = item;
+			}
+		});
+
+		res.end(JSON.stringify({
+			post: post
+		}));
+	});
+};
+
 // 测试方法
 exports.test = function (req, res) {
 	fs.readFile('./hello-world.md', 'utf8', function (err, data) {

@@ -1,0 +1,42 @@
+<div ng-controller="postDetailCtrl">
+	<div ng-if="post">
+		<article class="post">
+			<header class="post-header">
+				<h2 class="post-title">
+					{{post.title}}
+				</h2>
+				<div class="post-meta">
+					<span class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD hh:mm:ss'}}</span>
+					<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
+					<span class="post-meta-item"><a href="">{{post.comment_count}} 条评论</a></span>
+					<span class="post-meta-item">阅读次数 {{post.read_count}}</span>
+				</div>
+			</header>
+			<section class="post-body" ng-bind-html="post.content | toTrustHtml"></section>
+		</article>
+		<!-- 多说 start -->
+		<div class="duoshuo">
+			<!-- 多说分享 start -->
+			<div class="ds-share flat" data-thread-key="{{post.id}}" data-title="{{post.title}}" data-url="http://blog.hetianqi.net/#/posts/{{post.id}}">
+			    <div class="ds-share-inline">
+					<ul class="ds-share-icons-16">		      	
+				      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+				        <li><a class="ds-weibo" href="" data-service="weibo">微博</a></li>
+				        <li><a class="ds-qzone" href="" data-service="qzone">QQ空间</a></li>
+				        <li><a class="ds-qqt" href="" data-service="qqt">腾讯微博</a></li>
+				        <li><a class="ds-wechat" href="" data-service="wechat">微信</a></li>
+			      	</ul>
+					<div class="ds-share-icons-more"></div>
+			    </div>
+			</div>
+			<!-- 多说分享 end -->
+			<!-- 多说评论框 start -->
+			<div class="ds-thread" data-thread-key="{{post.id}}" data-title="{{post.title}}" data-url="http://blog.hetianqi.net/#/posts/{{post.id}}"></div>
+			<!-- 多说评论框 end -->
+		</div>
+		<!-- 多说 end -->
+	</div>
+	<div class="post-not-found" ng-if="!post">
+		<a href="" ng-click="goback()">文章不存在，点击返回！</a>
+	</div>
+</div>

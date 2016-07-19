@@ -26,7 +26,7 @@ require('./services/services')(app);
 
 // 加载各个控制器
 require('./controllers/headerController')(app);
-require('./controllers/homeController')(app);
+require('./controllers/mainController')(app);
 
 // DOM ready
 angular.element(document).ready(function () {
