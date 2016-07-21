@@ -20,13 +20,13 @@ exports.getList = function (req, res) {
 		var posts = JSON.parse(data);
 
 		res.end(JSON.stringify({
-			totalPage: 10,
+			total: 10,
 			posts: posts
 		}));
 	});
 };
 
-// 获取文章列表
+// 根据id获取文章
 exports.getById = function (req, res) {
 	fs.readFile('./data/postList.json', 'utf8', function (err, data) {
 		if (err) {

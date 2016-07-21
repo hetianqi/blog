@@ -1,5 +1,5 @@
 <div ng-controller="postDetailCtrl">
-	<div ng-if="post">
+	<div class="post-detail" ng-if="post">
 		<article class="post">
 			<header class="post-header">
 				<h2 class="post-title">
@@ -14,6 +14,11 @@
 			</header>
 			<section class="post-body" ng-bind-html="post.content | toTrustHtml"></section>
 		</article>
+		<!-- 文章导航 start -->
+		<nav class="post-nav">
+			
+		</nav>
+		<!-- 文章导航 end -->
 		<!-- 多说 start -->
 		<div class="duoshuo">
 			<!-- 多说分享 start -->

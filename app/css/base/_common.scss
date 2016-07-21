@@ -10,7 +10,7 @@ html, body {
 
 body {
 	font-family: $fontFamily;
-    font-size: 14px;
+    font-size: $fontSize;
 
     line-height: 2;
 
@@ -54,6 +54,13 @@ button {
 input, textarea, input[type="search"] {
 	outline: 0;
     appearance: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+
+    font-weight: bold;
+    font-family: 'Roboto Slab', 'Monda', 'PingFang SC', 'Microsoft YaHei', 'sans-serif';
 }
 
 .form-control {

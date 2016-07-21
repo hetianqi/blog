@@ -10,7 +10,8 @@ module.exports = function (app) {
 	app.config([
 		'$stateProvider', 
 		'$urlRouterProvider', 
-		function ($stateProvider, $urlRouterProvider) {
+		'$locationProvider',
+		function ($stateProvider, $urlRouterProvider, $locationProvider) {
 			$urlRouterProvider.otherwise('/');
 
 			$stateProvider
@@ -34,6 +35,8 @@ module.exports = function (app) {
 					url: '/posts/:postId',
 					templateUrl: 'posts.detail.html',
 				});
+			// 配置html5路由，去掉#
+			$locationProvider.html5Mode(true);
 		}
 	]);
 };

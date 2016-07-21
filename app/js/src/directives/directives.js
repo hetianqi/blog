@@ -14,7 +14,6 @@ module.exports = function (app) {
 				scope.start = 1;
 				scope.end = 1;
 				scope.current = 1;
-				scope.limit = 5;
 
 				// 改变页码
 				scope.changePage = function (pageIndex) {
@@ -28,7 +27,7 @@ module.exports = function (app) {
 				};
 
 				// 监视页码变化
-				scope.$watch('totalPage', setPage);
+				scope.$watch('total', setPage);
 				scope.$watch('current', setPage);
 
 				// 设置页码
@@ -46,6 +45,8 @@ module.exports = function (app) {
 
 				// 计算起始页
 				function calcPage() {
+					scope.totalPage = Math.ceil(scope.total / scope.limit);
+
 					if (scope.current <= scope.start || scope.current == scope.totalPage) {
 			            scope.start = Math.max(1, scope.current - scope.limit + 1);
 			        } else if (scope.current >= scope.end) {
@@ -61,8 +62,9 @@ module.exports = function (app) {
 				replace: true,
 				templateUrl: 'pagination.tpl.html',
 				scope: {
-					totalPage: '=',		// 入参，总页码
-					onPageChange: '=',	// 入参，页码改变回调
+					limit: '=',			// 入参，每页条目数
+					total: '=',			// 入参，条目总数
+					onPageChange: '='	// 入参，页码改变回调
 				},
 				link: link
 			};

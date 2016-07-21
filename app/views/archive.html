@@ -1,1 +1,15 @@
-归档页面
+<div ng-controller="archiveCtrl">
+	<section class="archive">
+		<h2 class="archive-total circle">目前共 {{total}} 篇文章，继续努力！</h2>
+		<section class="archive-list">
+			<div ng-repeat="(year, arc) in archives track by year">
+				<h3 class="archive-year circle">{{year}}</h3>
+				<article class="archive-post circle" ng-repeat="post in arc track by $index">
+					<time class="archive-time">{{post.createTime | formatDate: 'MM-DD'}}</time>
+					<a class="archive-title" ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
+				</article>
+			</div>
+		</section>
+	</section>	
+	<pagination limit="limit" total="total" on-page-change="getArchivePostList"></pagination>
+</div>

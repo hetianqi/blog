@@ -71,11 +71,17 @@ module.exports = function (app) {
 		.factory('Post', [
 			'$resource',
 			function ($resource) {
-				var Post = $resource('/Posts/:postId', { postId: '@id' }, {
+				var Post = $resource('/api/posts/:postId', { postId: '@id' }, {
 					query: { isArray: false }
 				});
 
 				return Post;
+			}
+		])
+		// 工具服务
+		.factory('util', [
+			function () {
+				
 			}
 		]);
 };

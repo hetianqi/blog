@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var path = require('path');
 var config = require('./libs/config');
+var common = require('./controllers/common');
 
 var app = express();
 
@@ -18,6 +19,15 @@ var app = express();
 app.use('/static', express.static('./app/'));
 // 设置网站图标
 app.use(favicon('./app/img/favicon.ico'));
+
+// 配置通用路由，前端路由由angularjs处理，路径带/api的由nodejs处理
+app.use(function (req, res, next) {
+	if (req.path.indexOf('/api') < 0) {
+		common.renderPage(req, res);
+	} else {
+		next();
+	}
+});
 
 // 注册路由
 require('./routes/route')(app);

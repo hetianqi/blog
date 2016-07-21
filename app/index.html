@@ -5,12 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<title>Emmett's blog</title>
+	<base href="/">
 	<link rel="stylesheet" href="/static/assets/normalize-css/normalize.css">
 	<link rel="stylesheet" href="/static/assets/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/static/css/fonts.css">
 	<link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body>
+<body on>
 	<!-- 顶部线条 -->
 	<div class="headbar">
 		<div class="headbar-inner"></div>
@@ -67,27 +68,46 @@
 		<main class="main clearfix">
 			<!-- 侧边栏 -->
 			<aside class="aside">
-				<div class="site-author-avatar">
-					<img src="/static/img/avatar.jpg">
-				</div>
-				<div class="site-author-info">
-					<p class="site-author-name">Emmett</p>
-					<p class="site-author-sign">激情澎湃的前端开发者</p>
-					<div class="follow-author">
-						<span class="follow-author-item">
-							<a href="https://github.com/hetianqi" target="_blank">
-								<i class="fa fa-fw fa-github"></i>
-								Github
-							</a>
-						</span>
-						<span class="follow-author-item">
-							<a href="http://www.cnblogs.com/hetianqi/" target="_blank">
-								<i class="fa fa-fw fa-globe"></i>
-								博客园
-							</a>
-						</span>						
+				<div class="aside-inner" ng-class="{fixed: isAsideFixed}">
+					<!-- 侧边栏导航 -->
+					<nav class="aside-nav" ng-show="showAsideNav">
+						<div class="aside-nav-item" ng-class="{active: isCatelogActive}" ng-click="toggleAsideNav(true)">文章目录</div>
+						<div class="aside-nav-item" ng-class="{active: !isCatelogActive}" ng-click="toggleAsideNav(false)">站点概况</div>
+					</nav>
+					<!-- 网站概述 -->
+					<div class="site-profile" ng-show="!isCatelogActive">
+						<div class="site-author-avatar">
+							<img src="/static/img/avatar.jpg">
+						</div>
+						<div class="site-author-info">
+							<p class="site-author-name">Emmett</p>
+							<p class="site-author-sign">激情澎湃的前端开发者</p>
+							<div class="follow-author">
+								<span class="follow-author-item">
+									<a href="https://github.com/hetianqi" target="_blank">
+										<i class="fa fa-fw fa-github"></i>
+										Github
+									</a>
+								</span>
+								<span class="follow-author-item">
+									<a href="http://www.cnblogs.com/hetianqi/" target="_blank">
+										<i class="fa fa-fw fa-globe"></i>
+										博客园
+									</a>
+								</span>						
+							</div>
+						</div>
 					</div>
-				</div>
+					<!-- 文章目录 -->
+					<div class="post-catelog" ng-show="isCatelogActive">
+						<ol ng-show="catelogs.length">
+							<li ng-repeat="catelog in catelogs">
+								<a href="#{{catelog}}">{{$index + 1}}.{{catelog}}</a>
+							</li>
+						</ol>
+						<span ng-show="!catelogs.length">本文章暂无目录</span>
+					</div>
+				</div>				
 			</aside>
 			<!-- 内容区 -->
 			<section class="content clearfix" ui-view></section>

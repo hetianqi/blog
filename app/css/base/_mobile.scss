@@ -1,0 +1,53 @@
+/* 移动端style */
+
+@media (max-width: 768px) {
+    .wrapper {
+        width: auto;
+    }
+
+    .aside {
+        float: none;
+
+        width: auto;
+        margin-top: 0;
+
+        overflow: hidden;
+    }
+
+    .aside-inner {
+        width: auto;
+    }
+
+    .site-author-avatar {
+        float: left;
+
+        width: 120px;
+    }
+
+    .site-author-info {
+        margin-top: 10px;
+        margin-left: 135px;
+    }
+
+    .site-author-name,
+    .site-author-sign {
+        text-align: left;
+    }
+
+    .site-author-sign {
+        margin-bottom: 0;
+    }
+
+    .follow-author {
+        padding: 0;
+    }
+
+    .follow-author-item {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .content {
+        margin: 40px 15px 0;
+    }
+}
