@@ -81,8 +81,9 @@ module.exports = function (app) {
 						},
 						isArray: false,
 						data: false,
+						withCredentials: true,
 						headers: {
-							'Access-Control-Allow-Origin': '*',
+							'Accept': '*/*',
 							'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
 						} 
 					}
