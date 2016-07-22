@@ -65,18 +65,18 @@ app.run([
 angular.element(document).ready(function () {
 	// 启动app模块
 	var injector = angular.bootstrap(document, ['app']);
+	var device = ua.getDevice();
 	var asideTop = parseInt(window.getComputedStyle(document.querySelector('.aside'), null)['marginTop']);
 
-	// 非手机端绑定滚动事件
-	if (ua.getDevice().type != 'mobile') {
-		// 窗口滚动时固定侧边导航栏
+	// 移动端和PC端特殊处理
+	if (device.type != 'mobile') {
+		// PC端窗口滚动时固定侧边导航栏
 		angular.element(window).on('scroll', function (e) {
 			injector.invoke(['$rootScope', function ($rootScope) {
 				if ($rootScope.showAsideNav) {
 					var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-					var asideTop = parseInt(window.getComputedStyle(document.querySelector('.aside'), null)['marginTop']);
 
-					// 在angular框架外（如事件，setTimeout, XHR等）设置scope需要用$apply
+					// 在angular框架外（如事件，setTimeout, XHR等）操作scope需要用$apply，否则视图不会刷新
 					$rootScope.$apply(function () {
 						if (scrollTop > asideTop) {
 							$rootScope.isAsideFixed = true;
@@ -85,7 +85,14 @@ angular.element(document).ready(function () {
 						}
 					});
 				}
-			}]);		
+			}]);
 		});
-	}	
+	} else {
+		// 移动端a标签打开窗口方式为当前窗口
+		angular.element(document).on('click', function (e) {
+			if (e.srcElement.tagName.toLowerCase() == 'a') {
+				e.srcElement.removeAttribute('target');
+			}
+		});
+	}
 });

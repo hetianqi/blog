@@ -111,18 +111,18 @@
 	angular.element(document).ready(function () {
 		// 启动app模块
 		var injector = angular.bootstrap(document, ['app']);
+		var device = ua.getDevice();
 		var asideTop = parseInt(window.getComputedStyle(document.querySelector('.aside'), null)['marginTop']);
 
-		// 非手机端绑定滚动事件
-		if (ua.getDevice().type != 'mobile') {
-			// 窗口滚动时固定侧边导航栏
+		// 移动端和PC端特殊处理
+		if (device.type != 'mobile') {
+			// PC端窗口滚动时固定侧边导航栏
 			angular.element(window).on('scroll', function (e) {
 				injector.invoke(['$rootScope', function ($rootScope) {
 					if ($rootScope.showAsideNav) {
 						var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-						var asideTop = parseInt(window.getComputedStyle(document.querySelector('.aside'), null)['marginTop']);
 
-						// 在angular框架外（如事件，setTimeout, XHR等）设置scope需要用$apply
+						// 在angular框架外（如事件，setTimeout, XHR等）操作scope需要用$apply，否则视图不会刷新
 						$rootScope.$apply(function () {
 							if (scrollTop > asideTop) {
 								$rootScope.isAsideFixed = true;
@@ -131,9 +131,16 @@
 							}
 						});
 					}
-				}]);		
+				}]);
 			});
-		}	
+		} else {
+			// 移动端a标签打开窗口方式为当前窗口
+			angular.element(document).on('click', function (e) {
+				if (e.srcElement.tagName.toLowerCase() == 'a') {
+					e.srcElement.removeAttribute('target');
+				}
+			});
+		}
 	});
 
 /***/ },
@@ -32773,7 +32780,20 @@
 				'$resource',
 				function ($resource) {
 					var Post = $resource('/api/posts/:postId', { postId: '@id' }, {
-						query: { isArray: false }
+						query: { isArray: false },
+						getCounts: {
+							url: 'http://api.duoshuo.com/threads/counts.json',
+							method: 'GET',
+							params: {
+								short_name: 'emmett'
+							},
+							isArray: false,
+							data: false,
+							headers: {
+								'Access-Control-Allow-Origin': '*',
+								'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+							} 
+						}
 					});
 
 					return Post;
@@ -32782,7 +32802,7 @@
 			// 工具服务
 			.factory('util', [
 				function () {
-					
+
 				}
 			]);
 	};
@@ -32833,22 +32853,45 @@
 				'headbar',
 				'Post',
 				'homeLimit',
-				function ($scope, headbar, Post, homeLimit) {
+				'$http',
+				function ($scope, headbar, Post, homeLimit, $http) {
 					// 获取文章列表
 					$scope.getPostList = function (p, setPageIndex) {
 						headbar.show();
 
-						Post.query({ p: p, s: homeLimit }, function (data) {
-							headbar.hide();
-							
-							$scope.limit = homeLimit;
-							$scope.total = data.total;
-							$scope.posts = data.posts;
+						Post.query({ p: p, s: homeLimit })
+							.$promise
+							.then(function (data) {
+								headbar.hide();
+								
+								$scope.limit = homeLimit;
+								$scope.total = data.total;
+								$scope.posts = data.posts || [];
 
-							if (angular.isFunction(setPageIndex)) {
-								setPageIndex(true);
-							}
-						});
+								if (angular.isFunction(setPageIndex)) {
+									setPageIndex(true);
+								}
+							})
+							.then(function () {
+								$scope.posts.forEach(function (post) {
+									$http.get('http://api.duoshuo.com/threads/counts.json', {
+										params: {
+											short_name: 'emmett',
+											threads: post.id,
+											referer: 'http://localhost:3456/'
+										},
+										data: false,
+										headers: {
+											'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+										}
+									}).then(function (counts) {
+										console.log(counts);
+									});
+									// Post.getCounts({ threads: post.id }, function (counts) {
+									// 	post.comment_count = counts.response[post.id].comments;
+									// });
+								});
+							});
 					};
 
 					$scope.getPostList(1);

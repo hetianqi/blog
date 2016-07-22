@@ -72,7 +72,20 @@ module.exports = function (app) {
 			'$resource',
 			function ($resource) {
 				var Post = $resource('/api/posts/:postId', { postId: '@id' }, {
-					query: { isArray: false }
+					query: { isArray: false },
+					getCounts: {
+						url: 'http://api.duoshuo.com/threads/counts.json',
+						method: 'GET',
+						params: {
+							short_name: 'emmett'
+						},
+						isArray: false,
+						data: false,
+						headers: {
+							'Access-Control-Allow-Origin': '*',
+							'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+						} 
+					}
 				});
 
 				return Post;
@@ -81,7 +94,7 @@ module.exports = function (app) {
 		// 工具服务
 		.factory('util', [
 			function () {
-				
+
 			}
 		]);
 };

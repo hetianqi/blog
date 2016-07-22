@@ -13,22 +13,45 @@ module.exports = function (app) {
 			'headbar',
 			'Post',
 			'homeLimit',
-			function ($scope, headbar, Post, homeLimit) {
+			'$http',
+			function ($scope, headbar, Post, homeLimit, $http) {
 				// 获取文章列表
 				$scope.getPostList = function (p, setPageIndex) {
 					headbar.show();
 
-					Post.query({ p: p, s: homeLimit }, function (data) {
-						headbar.hide();
-						
-						$scope.limit = homeLimit;
-						$scope.total = data.total;
-						$scope.posts = data.posts;
+					Post.query({ p: p, s: homeLimit })
+						.$promise
+						.then(function (data) {
+							headbar.hide();
+							
+							$scope.limit = homeLimit;
+							$scope.total = data.total;
+							$scope.posts = data.posts || [];
 
-						if (angular.isFunction(setPageIndex)) {
-							setPageIndex(true);
-						}
-					});
+							if (angular.isFunction(setPageIndex)) {
+								setPageIndex(true);
+							}
+						})
+						.then(function () {
+							$scope.posts.forEach(function (post) {
+								$http.get('http://api.duoshuo.com/threads/counts.json', {
+									params: {
+										short_name: 'emmett',
+										threads: post.id,
+										referer: 'http://localhost:3456/'
+									},
+									data: false,
+									headers: {
+										'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+									}
+								}).then(function (counts) {
+									console.log(counts);
+								});
+								// Post.getCounts({ threads: post.id }, function (counts) {
+								// 	post.comment_count = counts.response[post.id].comments;
+								// });
+							});
+						});
 				};
 
 				$scope.getPostList(1);
