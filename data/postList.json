@@ -10,8 +10,7 @@
 	"updateTime": "2016-07-20T04:05:54.262Z",
 	"published": true,
 	"category": "随笔",
-	"comment_count": 20,
-	"read_count": 153
+	"times": 153
 },
 {
 	"id": 2,
@@ -24,7 +23,6 @@
 	"updateTime": "2016-07-06T06:15:49.262Z",
 	"published": true,
 	"category": "随笔",
-	"comment_count": 4,
-	"read_count": 84
+	"times": 84
 }
 ]

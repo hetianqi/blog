@@ -34,7 +34,7 @@ module.exports = function (app) {
 						.then(function () {
 							$scope.posts.forEach(function (post) {
 								Post.getCounts({ threads: post.id }, function (counts) {
-									post.comment_count = counts.response[post.id].comments;
+									post.comments = counts.response[post.id].comments;
 								});
 							});
 						});
@@ -55,18 +55,25 @@ module.exports = function (app) {
 				$scope.getPostById = function (postId) {
 					headbar.show();
 
-					Post.get({ postId: postId }, function (data) {
-						headbar.hide();
-						
-						$scope.post = data.post;
-						$rootScope.catelogs = [];
-						$rootScope.showAsideNav = true;
-						$rootScope.isCatelogActive = true;
+					Post.get({ postId: postId })
+						.$promise.
+						then(function (data) {
+							headbar.hide();
+							
+							$scope.post = data.post;
+							$rootScope.catelogs = [];
+							$rootScope.showAsideNav = true;
+							$rootScope.isCatelogActive = true;
 
-						(data.post.content || '').replace(/\<h2\s+id=\"([^\"]+)\"\>/g, function (match, val) {
-							$rootScope.catelogs.push(val);
+							(data.post.content || '').replace(/\<h2\s+id=\"([^\"]+)\"\>/g, function (match, val) {
+								$rootScope.catelogs.push(val);
+							});
+						})
+						.then(function () {
+							Post.getCounts({ threads: $scope.post.id }, function (counts) {
+								$scope.post.comments = counts.response[$scope.post.id].comments;
+							});
 						});
-					});
 				};
 
 				// 返回前一个页面

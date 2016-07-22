@@ -32553,7 +32553,11 @@
 					})
 					.state('detail', {
 						url: '/posts/:postId',
-						templateUrl: 'posts.detail.html',
+						templateUrl: 'posts.detail.html'
+					})
+					.state('not-found', {
+						url: '',
+						templateUrl: 'search.html'			
 					});
 				// 配置html5路由，去掉#
 				$locationProvider.html5Mode(true);
@@ -32782,18 +32786,12 @@
 					var Post = $resource('/api/posts/:postId', { postId: '@id' }, {
 						query: { isArray: false },
 						getCounts: {
-							url: 'http://api.duoshuo.com/threads/counts.json',
+							url: 'http://emmett.duoshuo.com/api/threads/counts.json',
 							method: 'GET',
 							params: {
 								short_name: 'emmett'
 							},
-							isArray: false,
-							data: false,
-							withCredentials: true,
-							headers: {
-								'Accept': '*/*',
-								'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-							} 
+							isArray: false
 						}
 					});
 
@@ -32875,7 +32873,7 @@
 							.then(function () {
 								$scope.posts.forEach(function (post) {
 									Post.getCounts({ threads: post.id }, function (counts) {
-										post.comment_count = counts.response[post.id].comments;
+										post.comments = counts.response[post.id].comments;
 									});
 								});
 							});
@@ -32896,18 +32894,25 @@
 					$scope.getPostById = function (postId) {
 						headbar.show();
 
-						Post.get({ postId: postId }, function (data) {
-							headbar.hide();
-							
-							$scope.post = data.post;
-							$rootScope.catelogs = [];
-							$rootScope.showAsideNav = true;
-							$rootScope.isCatelogActive = true;
+						Post.get({ postId: postId })
+							.$promise.
+							then(function (data) {
+								headbar.hide();
+								
+								$scope.post = data.post;
+								$rootScope.catelogs = [];
+								$rootScope.showAsideNav = true;
+								$rootScope.isCatelogActive = true;
 
-							(data.post.content || '').replace(/\<h2\s+id=\"([^\"]+)\"\>/g, function (match, val) {
-								$rootScope.catelogs.push(val);
+								(data.post.content || '').replace(/\<h2\s+id=\"([^\"]+)\"\>/g, function (match, val) {
+									$rootScope.catelogs.push(val);
+								});
+							})
+							.then(function () {
+								Post.getCounts({ threads: $scope.post.id }, function (counts) {
+									$scope.post.comments = counts.response[$scope.post.id].comments;
+								});
 							});
-						});
 					};
 
 					// 返回前一个页面

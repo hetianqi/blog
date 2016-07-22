@@ -74,18 +74,12 @@ module.exports = function (app) {
 				var Post = $resource('/api/posts/:postId', { postId: '@id' }, {
 					query: { isArray: false },
 					getCounts: {
-						url: 'http://api.duoshuo.com/threads/counts.json',
+						url: 'http://emmett.duoshuo.com/api/threads/counts.json',
 						method: 'GET',
 						params: {
 							short_name: 'emmett'
 						},
-						isArray: false,
-						data: false,
-						withCredentials: true,
-						headers: {
-							'Accept': '*/*',
-							'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-						} 
+						isArray: false
 					}
 				});
 

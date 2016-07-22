@@ -33,7 +33,11 @@ module.exports = function (app) {
 				})
 				.state('detail', {
 					url: '/posts/:postId',
-					templateUrl: 'posts.detail.html',
+					templateUrl: 'posts.detail.html'
+				})
+				.state('not-found', {
+					url: '',
+					templateUrl: 'search.html'			
 				});
 			// 配置html5路由，去掉#
 			$locationProvider.html5Mode(true);

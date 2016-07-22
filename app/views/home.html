@@ -8,8 +8,8 @@
 				<div class="post-meta">
 					<span class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD hh:mm:ss'}}</span>
 					<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
-					<span class="post-meta-item"><a href="">{{post.comment_count}} 条评论</a></span>
-					<span class="post-meta-item">阅读次数 {{post.read_count}}</span>
+					<span class="post-meta-item"><a ui-sref="detail({postId:post.id})">{{post.comments}} 条评论</a></span>
+					<span class="post-meta-item">阅读次数 {{post.times}}</span>
 				</div>
 			</header>
 			<section class="post-body" ng-bind-html="post.excerpt | toTrustHtml"></section>
