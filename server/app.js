@@ -10,27 +10,27 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var path = require('path');
-var config = require('./libs/config');
-var common = require('./controllers/common');
+var config = require('./lib/config');
+var util = require('./lib/util');
 
 var app = express();
 
 // 设置静态文件请求路径
-app.use('/static', express.static('./app/'));
+app.use('/static', express.static(config.path.client));
 // 设置网站图标
-app.use(favicon('./app/img/favicon.ico'));
+app.use(favicon(config.path.client + 'img/favicon.ico'));
 
 // 配置通用路由，前端路由由angularjs处理，路径带/api的由nodejs处理
 app.use(function (req, res, next) {
 	if (req.path.indexOf('/api') < 0) {
-		common.renderPage(req, res);
+		util.renderPage(req, res);
 	} else {
 		next();
 	}
 });
 
 // 注册路由
-require('./routes/route')(app);
+require('./route')(app);
 
 // 启动服务器，监听客户端请求端口
 app.listen(config.port, function () {

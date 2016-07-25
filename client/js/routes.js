@@ -17,7 +17,8 @@ module.exports = function (app) {
 			$stateProvider
 				.state('home', {
 					url: '/',
-					templateUrl: 'home.html'
+					// templateUrl: 'home.html',
+					controller: 'postCtrl'
 				})
 				.state('archive', {
 					url: '/archive',

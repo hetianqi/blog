@@ -13,56 +13,65 @@ var uglify = require('gulp-uglify');
 var compass = require('gulp-compass');
 var autoprefixer = require('gulp-autoprefixer');
 var nodemon = require('gulp-nodemon');
+var config = require('./server/lib/config');
 
 // 定义文件路径
 var filePath = {
-	frontJs: 'app/js/src/*.js',
-	backJs: ['app.js', 'controllers/*.js', 'libs/*.js', 'routes/*.js'],
-	entryJs: './app/js/src/index.js',
-	destJs: 'app/js/dist',
-	scssDir: 'app/css/base',
-	scss: 'app/css/base/*.scss',
-	destCss: 'app/css'
+	clientJs: config.path.client + 'js/*.js',
+	serverJs: config.path.server + '*/*.js',
+	clientEntryJs: config.path.client + 'js/app.js',
+	serverEntryJs: config.path.server + 'app.js',
+	clientDestJs: config.path.client + 'js/',
+	scssDir: config.path.client + 'css/base',
+	scssFile: config.path.client + 'css/base/*.scss',
+	destCss: config.path.client + 'css'
 };
 
 // 重启node
 gulp.task('nodemon', function () {
-	nodemon({
-		script: 'app.js',
-		watch: filePath.backJs
-	});
+	return nodemon({
+			script: filePath.serverEntryJs,
+			watch: filePath.serverJs
+		});
 });
 
 // 校验js文件
 gulp.task('eslint', function () {
-	return gulp.src([filePath.frontJs].concat(filePath.backJs))
-		.pipe(eslint())
-		.pipe(eslint.format());
+	var eslintPath = [filePath.clientJs].concat([filePath.serverJs, '!'+ config.path.client + 'js/all.js']);
+
+	gulp.watch(eslintPath, eslintJs);
+	return eslintJs();
+
+	function eslintJs() {
+		return gulp.src(eslintPath)
+			.pipe(eslint())
+			.pipe(eslint.format());
+	}
 });
 
 // 编译前端js
 gulp.task('compileJs', function () {
-	return gulp.src(filePath.frontJs)
+	return gulp.src(filePath.clientJs)
 		.pipe(webpack({
 			watch: true,
 			entry: {
-				index: filePath.entryJs
+				index: filePath.clientEntryJs
 			},
 			output: {
-				filename: 'bundle.js'
+				filename: 'all.js'
 			}
 		}))
-		//.pipe(uglify())
-		.pipe(gulp.dest(filePath.destJs));
+		.pipe(uglify())
+		.pipe(gulp.dest(filePath.clientDestJs));
 });
 
 // 编译css
 gulp.task('compileCss', function () {
-	gulp.watch(filePath.scss, compileCss);
+	gulp.watch(filePath.scssFile, compileCss);
 	return compileCss();
 
 	function compileCss() {
-		return gulp.src(filePath.scss)
+		return gulp.src(filePath.scssFile)
 			.pipe(compass({
 		    	css: filePath.destCss,
 		    	sass: filePath.scssDir,

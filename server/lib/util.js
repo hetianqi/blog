@@ -1,7 +1,7 @@
 /**
- * 页面渲染控制器
+ * 工具类库
  * @author Emmett <heron1991@163.com>
- * @date 2016-07-14 23:27:38
+ * @date 2016-07-14 14:03:52
  */
 
 'use strict';
@@ -9,13 +9,15 @@
 var fs = require('fs');
 var path = require('path');
 var cheerio = require('cheerio');
+var config = require('./config');
 
+// 渲染页面，测试环境
 exports.renderPage = function (req, res) {
 	try {
 		// 将页面和模板载入到index.html页面一同发送到浏览器
-		var $ = cheerio.load(fs.readFileSync('./app/index.html', 'utf8'));
-		var viewPath = './app/views/';
-		var templatePath = './app/views/templates/';
+		var $ = cheerio.load(fs.readFileSync(config.path.client + 'index.html', 'utf8'));
+		var viewPath = config.path.client + 'views/';
+		var templatePath = config.path.client + 'views/templates/';
 		var viewFiles = fs.readdirSync(viewPath);
 		var templateFiles = fs.readdirSync(templatePath);
 		var templates = [];
@@ -44,6 +46,14 @@ exports.renderPage = function (req, res) {
 	}
 };
 
+// 返回404
 exports.error404 = function (req, res) {
 	res.status(404).end('Not Fount');
+};
+
+// 服务器报错返还
+exports.handleError = function (res, err) {
+	res.status(500).json({
+		error: err.toString()
+	});
 };

@@ -6,8 +6,8 @@
 
 'use strict';
 
-var common = require('../controllers/common');
-var post = require('../controllers/post');
+var util = require('./lib/util');
+var post = require('./api/post');
 
 module.exports = function (app) {
 	// 获取文章列表
@@ -18,5 +18,5 @@ module.exports = function (app) {
 	app.get('/api/post/test', post.test);
 
 	// 404返回结果
-	app.all('*', common.error404);
+	app.all('*', util.error404);
 };

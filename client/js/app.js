@@ -6,10 +6,10 @@
 
 'use strict';
 
-var angular = require('../../assets/angular');
-var uiRouter = require('../../assets/angular-ui-router/release/angular-ui-router.min');
-var ngResource = require('../../assets/angular-resource');
-var UAParser = require('../../assets/ua-parser-js');
+var angular = require('../assets/angular');
+var uiRouter = require('../assets/angular-ui-router/release/angular-ui-router.min');
+var ngResource = require('../assets/angular-resource');
+var UAParser = require('../assets/ua-parser-js');
 
 var app = angular.module('app', [uiRouter, ngResource]);
 var ua = new UAParser();
@@ -21,16 +21,16 @@ app.constant('homeLimit', 10);
 app.constant('archiveLimit', 20);
 
 // 加载路由
-require('./routers/routers')(app);
+require('./routes')(app);
 
 // 加载过滤器
-require('./filters/filters')(app);
+require('./filters')(app);
 
 // 加载指令集
-require('./directives/directives')(app);
+require('./directives')(app);
 
 // 加载服务
-require('./services/services')(app);
+require('./services')(app);
 
 // 加载各个控制器
 require('./controllers/headerController')(app);

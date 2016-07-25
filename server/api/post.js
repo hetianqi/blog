@@ -7,14 +7,15 @@
 'use strict';
 
 var fs = require('fs');
-var render = require('../libs/render');
-var utils = require('../libs/utils');
+var config = require('../lib/config');
+var render = require('../lib/render');
+var util = require('../lib/util');
 
 // 获取文章列表
 exports.getList = function (req, res) {
-	fs.readFile('./data/postList.json', 'utf8', function (err, data) {
+	fs.readFile(config.path.server + 'data/postList.json', 'utf8', function (err, data) {
 		if (err) {
-			return utils.handleError(res, err);
+			return util.handleError(res, err);
 		}
 
 		var posts = JSON.parse(data);
@@ -28,9 +29,9 @@ exports.getList = function (req, res) {
 
 // 根据id获取文章
 exports.getById = function (req, res) {
-	fs.readFile('./data/postList.json', 'utf8', function (err, data) {
+	fs.readFile(onfig.path.server + '/data/postList.json', 'utf8', function (err, data) {
 		if (err) {
-			return utils.handleError(res, err);
+			return util.handleError(res, err);
 		}
 
 		var posts = JSON.parse(data);
@@ -50,9 +51,9 @@ exports.getById = function (req, res) {
 
 // 测试方法
 exports.test = function (req, res) {
-	fs.readFile('./hello-world.md', 'utf8', function (err, data) {
+	fs.readFile(onfig.path.server + 'hello-world.md', 'utf8', function (err, data) {
 		if (err) {
-			return utils.handleError(res, err);
+			return util.handleError(res, err);
 		}
 
 		var post = render(data);
