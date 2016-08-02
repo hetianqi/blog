@@ -1,12 +1,14 @@
-<div ng-controller="archiveCtrl">
-	<section class="archive">
-		<h2 class="archive-total circle">目前共 {{total}} 篇文章，继续努力！</h2>
-		<section class="archive-list">
+<div class="content-margin" ng-controller="archiveCtrl">
+	<section class="post-collapse">
+		<h2 class="post-total circle">目前共 {{total}} 篇文章，继续努力！</h2>
+		<section class="post-list">
 			<div ng-repeat="(year, arc) in archives track by year">
 				<h3 class="archive-year circle">{{year}}</h3>
-				<article class="archive-post circle" ng-repeat="post in arc track by $index">
-					<time class="archive-time">{{post.createTime | formatDate: 'MM-DD'}}</time>
-					<a class="archive-title" ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
+				<article class="post circle" ng-repeat="post in arc track by $index">
+					<span class="post-meta">
+						<time class="post-time">{{post.createTime | formatDate: 'MM-DD'}}</time>
+					</span>
+					<a class="post-title" ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
 				</article>
 			</div>
 		</section>

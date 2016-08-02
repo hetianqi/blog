@@ -131,5 +131,39 @@ module.exports = function (app) {
 
 				$scope.getArchivePostList(1);		
 			}
+		])
+		.controller('tagsCtrl', [
+			'$scope',
+			'$filter',
+			'headbar',
+			'Tag',
+			function ($scope, $filter, headbar, Tag) {
+				headbar.show();
+
+				Tag.query()
+					.$promise
+					.then(function (data) {
+						headbar.hide();
+						$scope.tags = data.tags;
+						$scope.total = data.total;
+					});
+			}
+		])
+		.controller('tagDetailCtrl', [
+			'$scope',
+			'$stateParams',
+			'headbar',
+			'Tag',
+			'homeLimit',
+			function ($scope, $stateParams, headbar, Tag, homeLimit) {
+				$scope.tag = $stateParams.tag;
+
+				Tag.get({ tag: $stateParams.tag })
+					.$promise
+					.then(function (data) {
+						$scope.total = data.total
+						$scope.posts = data.posts;
+					});
+			}
 		]);
 };

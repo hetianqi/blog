@@ -18,7 +18,7 @@ var config = require('./server/lib/config');
 // 定义文件路径
 var filePath = {
 	clientJs: config.path.client + 'js/*.js',
-	serverJs: config.path.server + '*/*.js',
+	serverJs: [config.path.server + '*.js', config.path.server + '*/*.js'],
 	clientEntryJs: config.path.client + 'js/app.js',
 	serverEntryJs: config.path.server + 'app.js',
 	clientDestJs: config.path.client + 'js/',
@@ -37,7 +37,7 @@ gulp.task('nodemon', function () {
 
 // 校验js文件
 gulp.task('eslint', function () {
-	var eslintPath = [filePath.clientJs].concat([filePath.serverJs, '!'+ config.path.client + 'js/all.js']);
+	var eslintPath = filePath.serverJs.concat([filePath.clientJs, '!'+ config.path.client + 'js/all.js']);
 
 	gulp.watch(eslintPath, eslintJs);
 	return eslintJs();

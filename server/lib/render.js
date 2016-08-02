@@ -10,7 +10,7 @@ var marked = require('marked');
 var assign = require('object-assign');
 var stripIndent = require('strip-indent');
 var util = require('hexo-util');
-var renderHelper = require('./renderHelper');
+var renderUtil = require('./renderUtil');
 
 var highlight = util.highlight;
 var stripHTML = util.stripHTML;
@@ -81,12 +81,17 @@ marked.setOptions({
 });
 
 module.exports = function (markdownString, options) {
-    var data = renderHelper.splitTitle(markdownString);
+    var data = renderUtil.headerFilter(markdownString);
 
     data.content = marked(data._content, assign({
         renderer: new Renderer()
     }, options));
-    renderHelper.excerptFilter(data);
+    renderUtil.excerptFilter(data);
+
+    data._content = data._content.replace(/\"/g, '\\"');
+    data.content = data.content.replace(/\"/g, '\\"');
+    data.excerpt = data.excerpt.replace(/\"/g, '\\"');
+    data.raw = data.raw.replace(/\"/g, '\\"');
 
     return data;
 };

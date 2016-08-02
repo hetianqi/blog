@@ -31,7 +31,7 @@ p { margin: 0 0 20px; }
 
 button:hover .btn-bar { background-color: #ddd; }
 
-.clearfix:before, .pager:before, .clearfix:after, .pager:after { display: table; content: ""; }
+.clearfix:before, .pager:before, .clearfix:after, .pager:after { display: table; content: ""; clear: both; }
 
 .btn { display: inline-block; padding: 0 20px; border: 2px solid #555; border-radius: 0; font-size: 14px; text-decoration: none; color: #222; background: #fff; transition: background-color .2s ease-in-out; }
 .btn:hover { border-color: #222; color: #fff; background: #222; }
@@ -138,6 +138,8 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 
 .content { position: relative; margin: 0 0 40px 280px; }
 
+.content-margin { margin-top: 40px; }
+
 .aside-nav { margin-bottom: 20px; text-align: center; }
 
 .aside-nav-item { display: inline-block; padding-left: 5px 0; border-bottom: 1px solid transparent; cursor: pointer; }
@@ -147,62 +149,71 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 
 .page-loading { position: absolute; top: 0; left: 0; height: 0; }
 
+.site-profile { font-size: 13px; }
+
 .site-author-avatar img { display: block; max-width: 120px; margin: 0 auto; }
 
 .site-author-name { margin: 0; font-size: 20px; font-weight: bold; color: #222; text-align: center; }
 
 .site-author-sign { margin-bottom: 10px; color: #999; text-align: center; }
 
+.site-state { text-align: center; }
+
+.site-state-item { display: inline-block; }
+.site-state-item + .site-state-item { margin-left: 20px; }
+.site-state-item a { border-bottom-width: 0; }
+
+.site-state-count { color: #222; font-size: 16px; }
+
+.site-state-name { text-align: center; color: #999; }
+
 .follow-author { padding: 0 20px; }
 
-.follow-author-item { display: block; float: left; width: 50%; padding: 5px 10px; }
-.follow-author-item a { border-width: 0; font-size: 13px; color: #666; }
+.follow-author-item { display: block; float: left; width: 50%; padding: 0 10px; }
+.follow-author-item a { border-width: 0; color: #666; }
 .follow-author-item a:hover { color: #222; }
 
 .post-catelog a { border-bottom-color: #ccc; transition: all 0.2s ease-in-out; }
 .post-catelog a:hover { border-bottom-color: #222; }
 
-.post { padding: 40px 0; border-bottom: 1px solid #eee; }
-
-.post-header { margin-bottom: 40px; }
-
-.post-title { margin: 0; text-align: center; word-break: break-word; font-size: 26px; font-weight: 300; }
-.post-title a { border-width: 0; position: relative; }
-.post-title a:after { position: absolute; left: 0; top: 100%; content: ""; width: 100%; height: 2px; background-color: #222; -webkit-transform: scaleX(0); -ms-transform: scaleX(0); transform: scaleX(0); transition: all .2s; }
-.post-title a:hover:after { -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1); }
-
-.post-meta { margin-top: 3px; color: #999; font-size: 12px; text-align: center; }
-
-.post-meta-item { display: inline-block; }
-.post-meta-item + .post-meta-item:before { content: "|"; margin: 0 5px; }
-
-.post-body { text-align: justify; font-family: "Monda", "PingFang SC", "Microsoft YaHei", "sans-serif"; }
-
-.post-more-link { margin-top: 40px; text-align: center; }
+.post-expand .post { padding: 40px 0; border-bottom: 1px solid #eee; }
+.post-expand .post-header { margin-bottom: 40px; }
+.post-expand .post-title { margin: 0; text-align: center; word-break: break-word; font-size: 26px; font-weight: 300; }
+.post-expand .post-title a { border-width: 0; position: relative; }
+.post-expand .post-title a:after { position: absolute; left: 0; top: 100%; content: ""; width: 100%; height: 2px; background-color: #222; -webkit-transform: scaleX(0); -ms-transform: scaleX(0); transform: scaleX(0); transition: all .2s; }
+.post-expand .post-title a:hover:after { -webkit-transform: scaleX(1); -ms-transform: scaleX(1); transform: scaleX(1); }
+.post-expand .post-meta { margin-top: 3px; color: #999; font-size: 12px; text-align: center; }
+.post-expand .post-meta-item { display: inline-block; }
+.post-expand .post-meta-item + .post-meta-item:before { content: "|"; margin: 0 5px; }
+.post-expand .post-tag-list { margin-top: 10px; }
+.post-expand .post-tag { position: relative; display: inline-block; margin-right: 10px; padding: 0 5px; border: 1px solid #ddd; font-size: 13px; overflow: hidden; }
+.post-expand .post-tag:before { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; background-color: #ddd; -webkit-transform: translateX(-100%); -ms-transform: translateX(-100%); transform: translateX(-100%); transition: -webkit-transform .2s ease-in-out; transition: transform .2s ease-in-out; transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out; }
+.post-expand .post-tag:hover:before { -webkit-transform: translateX(0); -ms-transform: translateX(0); transform: translateX(0); }
+.post-expand .post-tag:hover a { color: #222; }
+.post-expand .post-tag a { border-bottom-width: 0; }
+.post-expand .post-body { text-align: justify; font-family: "Monda", "PingFang SC", "Microsoft YaHei", "sans-serif"; }
+.post-expand .post-more-link { margin-top: 40px; text-align: center; }
 
 .circle { position: relative; padding-left: 30px; }
-
 .circle:before { content: ""; position: absolute; border-radius: 50%; background-color: #555; opacity: 0.5; }
 
-.archive { position: relative; margin-top: 40px; }
+.post-collapse { position: relative; }
+.post-collapse:before { content: ""; position: absolute; left: -2px; top: 0; z-index: -1; width: 4px; height: 100%; background-color: #f5f5f5; }
+.post-collapse .post-total { margin: 0 0 40px 0; font-size: 14px; font-weight: normal; line-height: 1; }
+.post-collapse .post-total.circle:before { top: 2px; left: -5px; width: 10px; height: 10px; }
+.post-collapse .archive-year { margin-bottom: 30px; font-size: 20px; }
+.post-collapse .archive-year.circle:before { top: 16px; left: -4px; width: 8px; height: 8px; }
+.post-collapse .post { position: relative; margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; border-bottom: 1px dashed #ccc; transition: border .2s ease-in-out; }
+.post-collapse .post:hover { border-bottom-color: #666; }
+.post-collapse .post:hover .archive-time, .post-collapse .post:hover .archive-title { color: #222; }
+.post-collapse .post.circle:before { top: 16px; left: -3px; width: 6px; height: 6px; transition: opacity .2s ease-in-out; }
+.post-collapse .post.circle:hover:before { opacity: 1; }
+.post-collapse .post-meta { display: table-cell; color: #666; }
+.post-collapse .post-title { display: table-cell; padding-left: 20px; border-bottom-width: 0; }
 
-.archive:before { content: ""; position: absolute; left: -2px; top: 0; z-index: -1; width: 4px; height: 100%; background-color: #f5f5f5; }
+.tag-container { margin-top: 20px; }
 
-.archive-total { margin: 0 0 40px 0; font-size: 14px; font-weight: normal; line-height: 1; }
-.archive-total.circle:before { top: 2px; left: -5px; width: 10px; height: 10px; }
-
-.archive-year { margin-bottom: 30px; font-size: 20px; }
-.archive-year.circle:before { top: 16px; left: -4px; width: 8px; height: 8px; }
-
-.archive-post { position: relative; margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; border-bottom: 1px dashed #ccc; transition: border .2s ease-in-out; }
-.archive-post:hover { border-bottom-color: #666; }
-.archive-post:hover .archive-time, .archive-post:hover .archive-title { color: #222; }
-.archive-post.circle:before { top: 16px; left: -3px; width: 6px; height: 6px; transition: opacity .2s ease-in-out; }
-.archive-post.circle:hover:before { opacity: 1; }
-
-.archive-time { position: absolute; color: #666; }
-
-.archive-title { display: inline-block; margin-left: 50px; border-bottom-width: 0; }
+.tag-item { display: inline-block; margin-right: 20px; white-space: nowrap; }
 
 /* footer style */
 .footer { height: 50px; line-height: 50px; text-align: center; border-top: 1px solid #ccc; }
@@ -315,10 +326,10 @@ pre .keyword, pre .javascript .function { color: #8959a8; }
 @media (max-width: 768px) { .wrapper { width: auto; }
   .aside { float: none; width: auto; margin-top: 0; overflow: hidden; }
   .aside-inner { width: auto; }
+  .content { margin: 0 15px 0; }
   .site-author-avatar { float: left; width: 120px; }
-  .site-author-info { margin-top: 10px; margin-left: 135px; }
+  .site-author-info { margin-left: 135px; }
   .site-author-name, .site-author-sign { text-align: left; }
-  .site-author-sign { margin-bottom: 0; }
+  .site-state { text-align: left; }
   .follow-author { padding: 0; }
-  .follow-author-item { padding-left: 0; padding-right: 0; }
-  .content { margin: 40px 15px 0; } }
+  .follow-author-item { padding-left: 0; padding-right: 0; } }

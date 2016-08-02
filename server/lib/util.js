@@ -57,3 +57,22 @@ exports.handleError = function (res, err) {
 		error: err.toString()
 	});
 };
+
+//在数组中查找项的位置，兼容按对象关键字查找数组
+exports.indexOf = function (arr, value, key) {
+    var index = -1;
+
+    arr.forEach(function (item, idx) {
+        if (typeof item == 'object' && typeof key != 'undefined') {
+            if (item[key] == value[key]) {
+                index = idx;
+            }
+        } else {
+            if (item == value) {
+                index = idx;
+            }
+        }
+    });
+
+    return index;
+};

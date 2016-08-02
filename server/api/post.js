@@ -8,7 +8,6 @@
 
 var fs = require('fs');
 var config = require('../lib/config');
-var render = require('../lib/render');
 var util = require('../lib/util');
 
 // 获取文章列表
@@ -27,9 +26,9 @@ exports.getList = function (req, res) {
 	});
 };
 
-// 根据id获取文章
+// 根据postId获取文章
 exports.getById = function (req, res) {
-	fs.readFile(onfig.path.server + '/data/postList.json', 'utf8', function (err, data) {
+	fs.readFile(config.path.server + '/data/postList.json', 'utf8', function (err, data) {
 		if (err) {
 			return util.handleError(res, err);
 		}
@@ -46,25 +45,5 @@ exports.getById = function (req, res) {
 		res.end(JSON.stringify({
 			post: post
 		}));
-	});
-};
-
-// 测试方法
-exports.test = function (req, res) {
-	fs.readFile(onfig.path.server + 'hello-world.md', 'utf8', function (err, data) {
-		if (err) {
-			return util.handleError(res, err);
-		}
-
-		var post = render(data);
-
-		post._content = post._content.replace(/\"/g, '\\"');
-		post.content = post.content.replace(/\"/g, '\\"');
-		post.excerpt = post.excerpt.replace(/\"/g, '\\"');
-		post.raw = post.raw.replace(/\"/g, '\\"');
-
-		res.json({
-			post: post
-		});
 	});
 };

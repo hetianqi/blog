@@ -1,0 +1,12 @@
+<div class="content-margin" ng-controller="tagsCtrl">
+	<div class="tag-total">
+		共 {{total}} 个标签
+	</div>
+	<div class="tag-container">
+		<div class="tag-list">
+			<span class="tag-item" ng-repeat="tag in tags">
+				<a ui-sref="tags.detail({tag:tag.name})">{{tag.name}} ({{tag.post_count}})</a>
+			</span>
+		</div>
+	</div>
+</div>

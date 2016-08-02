@@ -10,7 +10,7 @@
   },
   "rules": {
     // 双峰驼命名格式 
-    "camelcase": 2,
+    // "camelcase": 2,
     // if else while for do后面的代码块是否需要{ }包围，参数：  
     //    multi  只有块中有多行语句时才需要{ }包围  
     //    multi-line  只有块中有多行语句时才需要{ }包围, 但是块中的执行语句只有一行时，  

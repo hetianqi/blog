@@ -19,18 +19,17 @@ var app = express();
 app.use('/static', express.static(config.path.client));
 // 设置网站图标
 app.use(favicon(config.path.client + 'img/favicon.ico'));
-
-// 配置通用路由，前端路由由angularjs处理，路径带/api的由nodejs处理
+// 配置路由中间件，前端路由由angularjs处理，路径带/api的由nodejs处理
 app.use(function (req, res, next) {
-	if (req.path.indexOf('/api') < 0) {
-		util.renderPage(req, res);
-	} else {
+	if (req.path.substring(0, 4).toLowerCase() == '/api') {
 		next();
+	} else {
+		util.renderPage(req, res);
 	}
 });
 
 // 注册路由
-require('./route')(app);
+require('./routes')(app);
 
 // 启动服务器，监听客户端请求端口
 app.listen(config.port, function () {

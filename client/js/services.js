@@ -65,6 +65,12 @@ module.exports = function (app) {
 				return { show: show, hide: hide };
 			}
 		])
+		// 工具服务
+		.factory('util', [
+			function () {
+
+			}
+		])
 		// 文章资源服务
 		.factory('Post', [
 			'$resource',
@@ -85,10 +91,15 @@ module.exports = function (app) {
 				return Post;
 			}
 		])
-		// 工具服务
-		.factory('util', [
-			function () {
+		// 标签资源服务
+		.factory('Tag', [
+			'$resource',
+			function ($resource) {
+				var Post = $resource('/api/tags/:tag', { postId: '@id' }, {
+					query: { isArray: false }
+				});
 
+				return Post;
 			}
 		]);
 };

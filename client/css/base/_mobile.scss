@@ -18,6 +18,10 @@
         width: auto;
     }
 
+    .content {
+        margin: 0 15px 0;
+    }
+
     .site-author-avatar {
         float: left;
 
@@ -25,7 +29,6 @@
     }
 
     .site-author-info {
-        margin-top: 10px;
         margin-left: 135px;
     }
 
@@ -34,8 +37,8 @@
         text-align: left;
     }
 
-    .site-author-sign {
-        margin-bottom: 0;
+    .site-state {
+        text-align: left;
     }
 
     .follow-author {
@@ -45,9 +48,5 @@
     .follow-author-item {
         padding-left: 0;
         padding-right: 0;
-    }
-
-    .content {
-        margin: 40px 15px 0;
     }
 }

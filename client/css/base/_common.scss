@@ -105,6 +105,7 @@ button:hover .btn-bar {
 .clearfix:after {
     display: table;
     content: "";
+    clear: both;
 }
 
 .btn {

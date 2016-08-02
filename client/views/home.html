@@ -1,15 +1,19 @@
 <div ng-controller="postCtrl">
-	<section class="post-list">
+	<section class="post-expand">
 		<article class="post" ng-repeat="post in posts">
 			<header class="post-header">
 				<h1 class="post-title">
 					<a ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
 				</h1>
 				<div class="post-meta">
-					<span class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD hh:mm:ss'}}</span>
-					<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
+					<time class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD'}}</time>
 					<span class="post-meta-item"><a ui-sref="detail({postId:post.id})">{{post.comments}} 条评论</a></span>
 					<span class="post-meta-item">阅读次数 {{post.times}}</span>
+				</div>
+				<div class="post-tag-list">
+					<span class="post-tag" ng-repeat="tag in post.tags">
+						<a ui-sref="tags.detail({tag: tag})">{{tag}}</a>
+					</span>
 				</div>
 			</header>
 			<section class="post-body" ng-bind-html="post.excerpt | toTrustHtml"></section>
