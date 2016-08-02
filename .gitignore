@@ -13,5 +13,5 @@ node_modules
 .sass-cache
 
 # compile
-/client/css/main.css
 /client/js/all.js
+/client/css/main.css
