@@ -1,11 +1,13 @@
 <div class="content-margin" ng-controller="tagDetailCtrl">
 	<section class="post-collapse">
 		<h2 class="post-total circle">{{tag}} 标签共 {{total}} 篇文章</h2>
-		<article class="post circle" ng-repeat="post in posts track by $index">
-			<span class="post-meta">
-				<time class="post-time">{{post.createTime | formatDate: 'YYYY-MM-DD'}}</time>
-			</span>
-			<a class="post-title" ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
+		<article class="post circle" ng-repeat="post in posts track by $index">			
+			<a ui-sref="detail({postId:post.id})" target="_blank">
+				<span class="post-meta">
+					<time class="post-time">{{post.createTime | formatDate: 'YYYY-MM-DD'}}</time>
+				</span>
+				<span class="post-title">{{post.title}}</span>				
+			</a>
 		</article>
 	</section>	
 	<pagination limit="limit" total="total" on-page-change="getArchivePostList"></pagination>

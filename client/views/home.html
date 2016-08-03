@@ -7,13 +7,11 @@
 				</h1>
 				<div class="post-meta">
 					<time class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD'}}</time>
-					<span class="post-meta-item"><a ui-sref="detail({postId:post.id})">{{post.comments}} 条评论</a></span>
+					<span class="post-meta-item">评论数 {{post.comments}}</span>
 					<span class="post-meta-item">阅读次数 {{post.times}}</span>
 				</div>
 				<div class="post-tag-list">
-					<span class="post-tag" ng-repeat="tag in post.tags">
-						<a ui-sref="tags.detail({tag: tag})">{{tag}}</a>
-					</span>
+					<a class="post-tag" ng-repeat="tag in post.tags" ui-sref="tags.detail({tag: tag})">{{tag}}</a>
 				</div>
 			</header>
 			<section class="post-body" ng-bind-html="post.excerpt | toTrustHtml"></section>

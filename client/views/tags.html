@@ -4,9 +4,7 @@
 	</div>
 	<div class="tag-container">
 		<div class="tag-list">
-			<span class="tag-item" ng-repeat="tag in tags">
-				<a ui-sref="tags.detail({tag:tag.name})">{{tag.name}} ({{tag.post_count}})</a>
-			</span>
+			<a class="tag-item" ng-repeat="tag in tags" ui-sref="tags.detail({tag:tag.name})">{{tag.name}} ({{tag.post_count}})</a>
 		</div>
 	</div>
 </div>

@@ -2,14 +2,14 @@
 	<div class="post-expand">
 		<article class="post">
 			<header class="post-header">
-				<h2 class="post-title">
-					{{post.title}}
-				</h2>
+				<h2 class="post-title">{{post.title}}</h2>
 				<div class="post-meta">
-					<span class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD hh:mm:ss'}}</span>
-					<span class="post-meta-item">分类于 <a href="">{{post.category}}</a></span>
-					<span class="post-meta-item"><a href="#comments">{{post.comments}} 条评论</a></span>
+					<time class="post-meta-item">发表于 {{post.createTime | formatDate: 'YYYY-MM-DD'}}</time>
+					<span class="post-meta-item">评论数 {{post.comments}}</span>
 					<span class="post-meta-item">阅读次数 {{post.times}}</span>
+				</div>
+				<div class="post-tag-list">
+					<a class="post-tag" ng-repeat="tag in post.tags" ui-sref="tags.detail({tag: tag})">{{tag}}</a>
 				</div>
 			</header>
 			<section class="post-body" ng-bind-html="post.content | toTrustHtml"></section>

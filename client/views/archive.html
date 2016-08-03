@@ -5,10 +5,12 @@
 			<div ng-repeat="(year, arc) in archives track by year">
 				<h3 class="archive-year circle">{{year}}</h3>
 				<article class="post circle" ng-repeat="post in arc track by $index">
-					<span class="post-meta">
-						<time class="post-time">{{post.createTime | formatDate: 'MM-DD'}}</time>
-					</span>
-					<a class="post-title" ui-sref="detail({postId:post.id})" target="_blank">{{post.title}}</a>
+					<a ui-sref="detail({postId:post.id})" target="_blank">						
+						<span class="post-meta">
+							<time class="post-time">{{post.createTime | formatDate: 'MM-DD'}}</time>
+						</span>
+						<span class="post-title">{{post.title}}</span>						
+					</a>
 				</article>
 			</div>
 		</section>
