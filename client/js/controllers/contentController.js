@@ -12,23 +12,24 @@ module.exports = function (app) {
 			'$scope',
 			'headbar',
 			'Post',
-			'homeLimit',
-			function ($scope, headbar, Post, homeLimit) {
+			'expandLimit',
+			function ($scope, headbar, Post, expandLimit) {
 				// 获取文章列表
 				$scope.getPostList = function (p, setPageIndex) {
 					headbar.show();
 
-					Post.query({ p: p, s: homeLimit })
+					Post.query({ p: p, l: expandLimit })
 						.$promise
 						.then(function (data) {
 							headbar.hide();
 							
-							$scope.limit = homeLimit;
+							$scope.limit = expandLimit;
 							$scope.total = data.total;
 							$scope.posts = data.posts || [];
 
+							// 更新页码
 							if (angular.isFunction(setPageIndex)) {
-								setPageIndex(true);
+								setPageIndex();
 							}
 						})
 						.then(function () {
@@ -39,8 +40,6 @@ module.exports = function (app) {
 							});
 						});
 				};
-
-				$scope.getPostList(1);
 			}
 		])
 		.controller('postDetailCtrl', [
@@ -56,8 +55,8 @@ module.exports = function (app) {
 					headbar.show();
 
 					Post.get({ postId: postId })
-						.$promise.
-						then(function (data) {
+						.$promise
+						.then(function (data) {
 							headbar.hide();
 							
 							$scope.post = data.post;
@@ -73,6 +72,7 @@ module.exports = function (app) {
 							Post.getCounts({ threads: $scope.post.id }, function (counts) {
 								$scope.post.comments = counts.response[$scope.post.id].comments;
 							});
+							loadDuoshuo();
 						});
 				};
 
@@ -81,17 +81,24 @@ module.exports = function (app) {
 					history.back();
 				};
 
-				$scope.getPostById($stateParams.postId);
+				// 初始化多说评论
+				function loadDuoshuo() {
+					var ds = document.getElementById('duoshuo_script');
+					window.duoshuoQuery = { short_name: "emmett" };
 
-				// 初始化多说评论 start
-				window.duoshuoQuery = { short_name: "emmett" };
-				var ds = document.createElement('script');
-				ds.type = 'text/javascript';
-				ds.async = true;
-				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-				ds.charset = 'UTF-8';
-				document.querySelector('head').appendChild(ds);
-				// 初始化多说评论 end
+					if (ds) {
+						document.querySelector('head').removeChild(ds);
+					}
+					
+					ds = document.createElement('script');
+					ds.id = 'duoshuo_script';
+					ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'utf-8';
+					document.querySelector('head').appendChild(ds);
+				}
+
+				$scope.getPostById($stateParams.postId);
 			}
 		])
 		.controller('archiveCtrl', [
@@ -99,37 +106,38 @@ module.exports = function (app) {
 			'$filter',
 			'headbar',
 			'Post',
-			'archiveLimit',
-			function ($scope, $filter, headbar, Post, archiveLimit) {
+			'collapseLimit',
+			function ($scope, $filter, headbar, Post, collapseLimit) {
 				$scope.getArchivePostList = function (p, setPageIndex) {
 					headbar.show();
 
-					Post.query({ p: p, s: archiveLimit }, function (data) {
-						headbar.hide();
-						
-						$scope.limit = archiveLimit;
-						$scope.total = data.total;
+					Post.query({ p: p, l: collapseLimit })
+						.$promise
+						.then(function (data) {
+							headbar.hide();
+							
+							$scope.limit = collapseLimit;
+							$scope.total = data.total;
 
-						var archives = $scope.archives = {};
-						var k;
-						
-						(data.posts || []).forEach(function (item) {
-							k = $filter('formatDate')(item.createTime, 'YYYY');
+							var archives = $scope.archives = {};
+							var k;
+							
+							(data.posts || []).forEach(function (item) {
+								k = $filter('formatDate')(item.createTime, 'YYYY');
 
-							if (!archives[k]) {
-								archives[k] = [];
+								if (!archives[k]) {
+									archives[k] = [];
+								}
+
+								archives[k].push(item);
+							});
+							
+							// 更新页码
+							if (angular.isFunction(setPageIndex)) {
+								setPageIndex();
 							}
-
-							archives[k].push(item);
 						});
-
-						if (angular.isFunction(setPageIndex)) {
-							setPageIndex(true);
-						}
-					});
-				};
-
-				$scope.getArchivePostList(1);		
+				};	
 			}
 		])
 		.controller('tagsCtrl', [
@@ -145,7 +153,6 @@ module.exports = function (app) {
 					.then(function (data) {
 						headbar.hide();
 						$scope.tags = data.tags;
-						$scope.total = data.total;
 					});
 			}
 		])
@@ -154,16 +161,42 @@ module.exports = function (app) {
 			'$stateParams',
 			'headbar',
 			'Tag',
-			'homeLimit',
-			function ($scope, $stateParams, headbar, Tag, homeLimit) {
-				$scope.tag = $stateParams.tag;
+			'collapseLimit',
+			function ($scope, $stateParams, headbar, Tag, collapseLimit) {
+				$scope.getPostListByTagName = function (p, setPageIndex) {
+					$scope.tag = $stateParams.tag;
+					headbar.show();
 
-				Tag.get({ tag: $stateParams.tag })
-					.$promise
-					.then(function (data) {
-						$scope.total = data.total
-						$scope.posts = data.posts;
-					});
+					Tag.get({ tag: $stateParams.tag, p: p, l: collapseLimit })
+						.$promise
+						.then(function (data) {
+							headbar.hide();
+							$scope.limit = collapseLimit;
+							$scope.total = data.total;
+							$scope.posts = data.posts;
+
+							// 更新页码
+							if (angular.isFunction(setPageIndex)) {
+								setPageIndex();
+							}
+						});
+				};		
+			}
+		])
+		.controller('aboutCtrl', [
+			'$scope',
+			function ($scope) {
+				var birth = new Date('1991-02-10');
+				var now = new Date();
+				var age = now.getFullYear() - birth.getFullYear();
+
+				if (now.getMonth() < birth.getMonth()) {
+					age--;
+				} else if (now.getMonth() == birth.getMonth() && now.getDate() < birth.getDate()) {
+					age--;
+				}
+
+				$scope.age = age;
 			}
 		]);
 };

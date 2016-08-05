@@ -8,42 +8,74 @@
 
 var fs = require('fs');
 var config = require('../lib/config');
-var util = require('../lib/util');
+var error = require('../lib/error');
+var render = require('../lib/render');
+var Post = require('../model/Post');
+var Promise = require('bluebird');
+
+// 新增文章
+exports.add = function (req, res) {
+	fs.readFile(config.path.root + 'test.md', 'utf8', function (err, data) {
+		if (err) {
+			return error.serverError(res, err);
+		}
+
+		var post = new Post(render(data));
+
+		post
+			.save()
+			.then(function (data) {
+				res.json({
+					post: data
+				});
+			}, function (err) {
+				error.serverError(res, err);
+			});
+	});
+};
 
 // 获取文章列表
 exports.getList = function (req, res) {
-	fs.readFile(config.path.server + 'data/postList.json', 'utf8', function (err, data) {
-		if (err) {
-			return util.handleError(res, err);
-		}
+	var total = 0;
+	var posts = [];
+	var limit = +req.query.l;
+	var skip = limit * (+req.query.p - 1);
 
-		var posts = JSON.parse(data);
+	if (isNaN(limit) || isNaN(skip)) {
+		return error.paramsError('p and s must be a number!');
+	}
 
-		res.end(JSON.stringify({
-			total: 10,
-			posts: posts
-		}));
-	});
+	Promise
+		.all([
+			Post.count(),
+			// Model.find(conditions, [fields], [options], [callback])
+			Post.find({}, null, {
+				skip: skip,
+				limit: limit,
+				sort: {
+					createTime: -1
+				}
+			})
+		])
+		.then(function (data) {
+			res.json({
+				total: data[0],
+				posts: data[1]
+			});
+		}, function (err) {
+			error.serverError(res, err);
+		});
 };
 
 // 根据postId获取文章
 exports.getById = function (req, res) {
-	fs.readFile(config.path.server + '/data/postList.json', 'utf8', function (err, data) {
-		if (err) {
-			return util.handleError(res, err);
-		}
-
-		var posts = JSON.parse(data);
-		var post;
-
-		posts.forEach(function (item) {
-			if (item.id == req.params.postId) {
-				post = item;
-			}
+	Post
+		.findOne({ id: req.params.postId })
+		.then(function (post) {
+			res.json({
+				post: post
+			});
+		}, function (err) {
+			error.serverError(res, err);
 		});
-
-		res.end(JSON.stringify({
-			post: post
-		}));
-	});
 };

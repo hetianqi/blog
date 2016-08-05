@@ -266,8 +266,8 @@
     .post-tag {
         position: relative;
 
-        display: inline-block;        
-        margin-right: 10px;
+        display: inline-block;
+        margin: 5px 10px 0 0;
         padding: 0 5px;
         border: 1px solid #ddd;
 
@@ -461,5 +461,45 @@
 
     &:hover:before {
         transform: translateY(0);
+    }
+}
+
+.anout-title {
+    margin-bottom: 20px;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.blog-about {
+    margin-bottom: 20px;
+
+    p {
+        text-indent: 2em;
+    }
+}
+
+.module-about {
+    section {
+        border: 1px solid #555;
+        border-radius: 3px;
+
+        text-align: center;
+
+        header {
+            border-bottom: 1px solid #555;
+
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        ul {
+            min-height: 170px;
+            padding: 10px 0;
+
+            li {
+                line-height: 30px;
+            }
+        }
     }
 }

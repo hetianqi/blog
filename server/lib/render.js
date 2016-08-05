@@ -17,7 +17,7 @@ var stripHTML = util.stripHTML;
 var escapeHTML = util.escapeHTML;
 var MarkedRenderer = marked.Renderer;
 
-// highlight渲染类
+// marked渲染类
 function Renderer() {
     MarkedRenderer.apply(this);
 
@@ -57,6 +57,23 @@ Renderer.prototype.code = function (code, lang, escaped) {
     }  
 };
 
+// 图片处理
+Renderer.prototype.image = function (href, title, text) {
+    var img = '<img src="' + href + '"';
+
+    if (title) {
+        img += ' title="' + title + '"';
+    }
+    if (text) {
+        img += ' alt="' + text + '"';
+    }
+
+    img += '>';
+
+    return '<span class="full-img">' + img + '</span>';
+};
+
+// 取锚点
 function anchorId(str) {
     return util.slugize(str.trim());
 }
@@ -80,18 +97,13 @@ marked.setOptions({
     }
 });
 
-module.exports = function (markdownString, options) {
+module.exports = function render(markdownString, options) {
     var data = renderUtil.headerFilter(markdownString);
 
     data.content = marked(data._content, assign({
         renderer: new Renderer()
-    }, options));
+    }, options)).trim();
     renderUtil.excerptFilter(data);
-
-    data._content = data._content.replace(/\"/g, '\\"');
-    data.content = data.content.replace(/\"/g, '\\"');
-    data.excerpt = data.excerpt.replace(/\"/g, '\\"');
-    data.raw = data.raw.replace(/\"/g, '\\"');
 
     return data;
 };

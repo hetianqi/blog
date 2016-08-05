@@ -11,16 +11,21 @@ module.exports = function (app) {
 	app.directive('pagination', [
 		function () {
 			function link(scope, element, attributes) {
+				// 开始页码
 				scope.start = 1;
+				// 结束页码
 				scope.end = 1;
+				// 当前页码
 				scope.current = 1;
+				// 显示的页码条数
+				scope.size = 5;
 
 				// 改变页码
 				scope.changePage = function (pageIndex) {
 					scope.onPageChange(pageIndex, function (isGotoTop) {
 						scope.current = pageIndex;
 
-						if (isGotoTop) {
+						if (isGotoTop === undefined || isGotoTop) {
 							document.querySelector('body').scrollTop = 0;
 						}
 					});
@@ -32,6 +37,11 @@ module.exports = function (app) {
 
 				// 设置页码
 				function setPage() {
+					// 防止参数未初始化完成导致后续计算错误
+					if (!scope.limit || !scope.total) {
+						return;
+					}
+
 					calcPage();
 
 					var pages = [];
@@ -48,13 +58,16 @@ module.exports = function (app) {
 					scope.totalPage = Math.ceil(scope.total / scope.limit);
 
 					if (scope.current <= scope.start || scope.current == scope.totalPage) {
-			            scope.start = Math.max(1, scope.current - scope.limit + 1);
+			            scope.start = Math.max(1, scope.current - scope.size + 1);
 			        } else if (scope.current >= scope.end) {
-			            scope.start = Math.min(scope.current, scope.totalPage - scope.limit + 1);
+			            scope.start = Math.min(scope.current, scope.totalPage - scope.size + 1);
 			        }
 
-			        scope.end = Math.min(scope.start + scope.limit - 1, scope.totalPage);
+			        scope.end = Math.min(scope.start + scope.size - 1, scope.totalPage);
 				}
+
+				// 请求第一页
+				scope.changePage(1);
 			}
 
 			return {

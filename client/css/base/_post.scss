@@ -1,5 +1,15 @@
 /* 代码高亮样式 */
 
+.full-img {
+    display: block;
+
+    text-align: center;
+
+    img {
+        max-width: 100%;
+    }
+}
+
 pre,
 .highlight {
     overflow: auto;

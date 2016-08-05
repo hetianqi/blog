@@ -25,7 +25,7 @@ function eofFilter(str) {
 // 取文章头部信息，包括title, date, tags, categories
 function headerFilter(str) {
     if (typeof str !== 'string') {
-        throw new TypeError('str is required!');
+        throw new TypeError('str must be a string!');
     }
 
     str = eofFilter(str);
@@ -41,7 +41,7 @@ function headerFilter(str) {
         }
 
         if (rDate.test(header)) {
-            data.date = new Date((header.match(rDate)[1] || '').trim());
+            data.createTime = new Date((header.match(rDate)[1] || '').trim());
         }
 
         if (rTags.test(header)) {

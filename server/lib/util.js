@@ -58,7 +58,7 @@ exports.handleError = function (res, err) {
 	});
 };
 
-//在数组中查找项的位置，兼容按对象关键字查找数组
+// 在数组中查找项的位置，兼容按对象关键字查找数组
 exports.indexOf = function (arr, value, key) {
     var index = -1;
 
@@ -75,4 +75,72 @@ exports.indexOf = function (arr, value, key) {
     });
 
     return index;
+};
+
+// 格式化时间
+exports.formatDate = function (date, format) {
+	format = format || 'YYYY-MM-DD hh:mm:ss';
+
+	if (!date instanceof Date) {
+		date = new Date(date);
+	}
+
+    var o = {
+    	'Y+': date.getFullYear(),
+        'M+': date.getMonth() + 1,
+        'D+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds(),
+        'S': date.getMilliseconds()
+    };
+    var s;
+
+    // 遍历替换每个匹配项
+    for (var k in o) {
+    	s = '' + o[k];
+
+        if (new RegExp('(' + k + ')').test(format)) {
+            format = format.replace(RegExp.$1, function (match, index) {
+            	// 年份特殊处理
+            	if (k == 'Y+') {
+            		return s.substr(4 - match.length);
+            	}
+
+            	return match.length == 1 ? s : (s = '00' + s).substr(s.length - match.length);
+            });
+        }
+    }
+
+    return format;
+};
+
+// 日志记录到本地文件
+exports.log = function (msg, type) {
+	var logPath = config.path.log;
+	var logName = '';
+	var d = new Date();
+
+	switch (type) {
+		case 'log':
+			logName = 'log.log';
+			break;
+		case 'error':
+			logName = 'error.log';
+			break;
+		default:
+			logName = 'log.log';
+	}
+
+	msg = exports.formatDate(d, 'YYYY-MM-DD hh:mm:ss') + '    ' + msg;
+
+	fs.stat(logPath, function (err, stats) {
+		// 如果目录不存在则创建目录
+		if (err && err.code == 'ENOENT') {
+			console.log('创建目录');
+			fs.mkdirSync(logPath);
+		}
+
+		fs.appendFile(logPath + logName, msg + '\r\n');
+	});	
 };

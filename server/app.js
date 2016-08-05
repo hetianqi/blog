@@ -12,9 +12,16 @@ var favicon = require('serve-favicon');
 var path = require('path');
 var config = require('./lib/config');
 var util = require('./lib/util');
+var db = require('./lib/db');
 
 var app = express();
 
+// 连接数据库
+db.connect();
+
+//格式化提交表单，extended为true表示将post过来的字符串转化为json
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // 设置静态文件请求路径
 app.use('/static', express.static(config.path.client));
 // 设置网站图标

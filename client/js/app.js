@@ -16,9 +16,9 @@ var ua = new UAParser();
 
 // 设置常量
 // 首页每页条目数
-app.constant('homeLimit', 10);
+app.constant('expandLimit', 10);
 // 归档页每页条目数
-app.constant('archiveLimit', 20);
+app.constant('collapseLimit', 20);
 
 // 加载路由
 require('./routes')(app);
