@@ -1,0 +1,48 @@
+<div class="content-margin" ng-controller="uploadCtrl">
+	<h1 class="row-title">上传文章</h1>
+	<div class="item">
+		<div class="item-name">类型</div>
+		<div class="item-text">
+			<label class="radio-inline">				
+				<input type="radio" value="post" ng-model="type"> 文章
+			</label>
+			<label class="radio-inline">				
+				<input type="radio" value="attachment" ng-model="type"> 附件
+			</label>
+		</div>
+	</div>
+	<div class="item" ng-show="type == 'post'">
+		<div class="item-name">文章</div>
+		<div class="item-text">
+			<input type="file" ng-model="selectPost" file-reader>
+		</div>
+	</div>
+	<div class="item" ng-show="type == 'attachment'">
+		<div class="item-name">附件</div>
+		<div class="item-text">
+			<input type="file" ng-model="selectAttachments" multiple file-reader>
+		</div>
+	</div>
+	<div class="item" ng-show="type == 'attachment'">
+		<div class="item-name">文件路径</div>
+		<div class="item-text">
+			<table>
+				<thead>
+					<tr>
+						<th>文件</th>
+						<th>路径</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="attach in attachments">
+						<td ng-bind="attach.filename"></td>
+						<td ng-bind="attach.filepath"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="form-option">
+		<button class="btn" type="button" ng-click="submitUpload()">提交</button>
+	</div>
+</div>
