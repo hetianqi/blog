@@ -135,6 +135,8 @@ exports.log = function (msg, type) {
 // 同步创建多级目录
 exports.mkdirsSync = function (dirpath, mode) {
 	try {
+		dirpath = dirpath.trim();
+
 		// 统一目录分隔符
 		if (path.sep == '/') {
 			dirpath = dirpath.replace(/\\/g, path.sep);
@@ -147,6 +149,11 @@ exports.mkdirsSync = function (dirpath, mode) {
 			var pathtmp;
 			var pathArr = dirpath.split(path.sep);
 
+			// 特殊处理*nix路径
+			if (path.sep == '/') {
+				pathArr[0] = '/';
+			}
+
 			for (var i in pathArr) {
 				if (pathtmp) {
 	                pathtmp = path.join(pathtmp, pathArr[i]);
@@ -154,9 +161,11 @@ exports.mkdirsSync = function (dirpath, mode) {
 	                pathtmp = pathArr[i];
 	            }
 
+	            console.log(pathtmp);
+
 	            if (!existsSync(pathtmp)) {
 	            	fs.mkdirSync(pathtmp, mode);
-	            }
+	            }			
 			}
 		}
 
