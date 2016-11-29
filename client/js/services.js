@@ -75,7 +75,7 @@ module.exports = function (app) {
 		.factory('Post', [
 			'$resource',
 			function ($resource) {
-				var Post = $resource('/api/posts/:postId', { postId: '@id' }, {
+				var Post = $resource('/api/posts/:postId', null, {
 					query: { isArray: false },
 					getCounts: {
 						url: 'http://emmett.duoshuo.com/api/threads/counts.json',
@@ -85,6 +85,12 @@ module.exports = function (app) {
 							short_name: 'emmett'
 						},
 						isArray: false
+					},
+					upload: {
+						method: 'POST',
+						headers: {
+							'Content-Type': undefined
+						}
 					}
 				});
 
@@ -95,11 +101,28 @@ module.exports = function (app) {
 		.factory('Tag', [
 			'$resource',
 			function ($resource) {
-				var Post = $resource('/api/tags/:tag', { postId: '@id' }, {
+				var Tag = $resource('/api/tags/:tagId', null, {
 					query: { isArray: false }
 				});
 
-				return Post;
+				return Tag;
+			}
+		])
+		// 标签资源服务
+		.factory('Attachment', [
+			'$resource',
+			function ($resource) {
+				var Attachment = $resource('/api/attachment/:attachmentId', null, {
+					query: { isArray: false },
+					upload: {
+						method: 'POST',
+						headers: {
+							'Content-Type': undefined
+						}
+					}
+				});
+
+				return Attachment;
 			}
 		]);
 };

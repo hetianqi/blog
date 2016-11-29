@@ -15,7 +15,7 @@ var Promise = require('bluebird');
 
 // 新增文章
 exports.add = function (req, res) {
-	fs.readFile(config.path.root + 'test.md', 'utf8', function (err, data) {
+	fs.readFile(req.file.path, 'utf8', function (err, data) {
 		if (err) {
 			return error.serverError(res, err);
 		}
@@ -42,7 +42,7 @@ exports.getList = function (req, res) {
 	var skip = limit * (+req.query.p - 1);
 
 	if (isNaN(limit) || isNaN(skip)) {
-		return error.paramsError('p and s must be a number!');
+		return error.paramsError(res, 'p and s must be a number!');
 	}
 
 	Promise

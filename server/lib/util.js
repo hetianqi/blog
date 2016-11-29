@@ -46,18 +46,6 @@ exports.renderPage = function (req, res) {
 	}
 };
 
-// 返回404
-exports.error404 = function (req, res) {
-	res.status(404).end('Not Fount');
-};
-
-// 服务器报错返还
-exports.handleError = function (res, err) {
-	res.status(500).json({
-		error: err.toString()
-	});
-};
-
 // 在数组中查找项的位置，兼容按对象关键字查找数组
 exports.indexOf = function (arr, value, key) {
     var index = -1;
@@ -79,7 +67,7 @@ exports.indexOf = function (arr, value, key) {
 
 // 格式化时间
 exports.formatDate = function (date, format) {
-	format = format || 'YYYY-MM-DD hh:mm:ss';
+	format = format || 'YYYY/MM/DD hh:mm:ss';
 
 	if (!date instanceof Date) {
 		date = new Date(date);
@@ -119,7 +107,7 @@ exports.formatDate = function (date, format) {
 exports.log = function (msg, type) {
 	var logPath = config.path.log;
 	var logName = '';
-	var d = new Date();
+	var now = new Date();
 
 	switch (type) {
 		case 'log':
@@ -132,15 +120,58 @@ exports.log = function (msg, type) {
 			logName = 'log.log';
 	}
 
-	msg = exports.formatDate(d, 'YYYY-MM-DD hh:mm:ss') + '    ' + msg;
+	msg = exports.formatDate(now) + '    ' + msg;
 
 	fs.stat(logPath, function (err, stats) {
 		// 如果目录不存在则创建目录
 		if (err && err.code == 'ENOENT') {
-			console.log('创建目录');
 			fs.mkdirSync(logPath);
 		}
 
 		fs.appendFile(logPath + logName, msg + '\r\n');
 	});	
+};
+
+// 同步创建多级目录
+exports.mkdirsSync = function (dirpath, mode) {
+	var result = true;
+
+	// 统一目录分隔符
+	if (path.sep == '/') {
+		dirpath = dirpath.replace(/\\/g, path.sep);
+	} else {
+		dirpath = dirpath.replace(/\//g, path.sep);
+	}
+
+	// 如果目录不存
+	if (!existsSync(dirpath)) {
+		var pathtmp;
+		var pathArr = dirpath.split(path.sep);
+
+		for (var i in pathArr) {
+			if (pathtmp) {
+                pathtmp = path.join(pathtmp, pathArr[i]);
+            } else {
+                pathtmp = pathArr[i];
+            }
+            if (!existsSync(pathtmp)) {
+                if (!fs.mkdirSync(pathtmp, mode)) {
+                    result = false;
+                    break;
+                }
+            }
+		}
+	}
+
+    return result; 
+};
+
+// 判断目录是否存在
+var existsSync = exports.existsSync = function (path) {
+	try {
+		fs.statSync(path);
+		return true;
+	} catch (e) {
+		return false;
+	}
 };

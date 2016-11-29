@@ -47,6 +47,10 @@ module.exports = function (app) {
 					url: '/about',
 					templateUrl: 'about.html'
 				})
+				.state('upload', {
+					url: '/upload',
+					templateUrl: 'upload.html'
+				})
 				.state('not-found', {
 					url: '',
 					templateUrl: 'search.html'			

@@ -16,3 +16,6 @@ node_modules
 # compile
 /client/js/all.js
 /client/css/main.css
+
+# upload
+/client/upload

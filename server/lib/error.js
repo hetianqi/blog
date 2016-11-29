@@ -8,7 +8,9 @@
 
 // 404错误
 exports.error404 = function (req, res) {
-	res.status(404).end('Not Fount');
+	res.status(404).json({
+		error: 'Not found!'
+	});
 };
 
 // 参数错误

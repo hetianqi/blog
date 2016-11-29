@@ -25,6 +25,7 @@ module.exports = {
 		root: rootPath,
 		client: path.join(rootPath, './client/'),
 		server: path.join(rootPath, './server/'),
-		log: path.join(rootPath, './server/log/')
+		log: path.join(rootPath, './server/log/'),
+		upload: path.join(rootPath, './client/upload/')
 	}
 };

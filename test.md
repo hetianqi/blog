@@ -40,3 +40,6 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/deployment.html)
+
+测试图片
+![测试图片](/static/upload/2016/11/IMG_1892.JPG)

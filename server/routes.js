@@ -6,14 +6,35 @@
 
 'use strict';
 
+var fs = require('fs');
+var multer = require('multer');
 var error = require('./lib/error');
+var config = require('./lib/config');
+var util = require('./lib/util');
 var post = require('./api/post');
 var tag = require('./api/tag');
+var attachment = require('./api/attachment');
+
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		var uploadPath = config.path.upload;
+		var now = new Date();
+
+		uploadPath += now.getFullYear() + '/' + (now.getMonth() + 1);
+		util.mkdirsSync(uploadPath);
+		cb(null, uploadPath);
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	}
+});
+var uploader = multer({
+	storage: storage
+});
 
 module.exports = function (app) {
 	// 新增文章
-	app.post('/api/posts', post.add);
-	app.get('/api/posts/add', post.add);
+	app.post('/api/posts', uploader.single('post'), post.add);
 	// 获取文章列表
 	app.get('/api/posts', post.getList);
 	// 根据postId获取文章
@@ -23,6 +44,9 @@ module.exports = function (app) {
 	app.get('/api/tags', tag.getList);
 	// 获取标签下对应文章列表
 	app.get('/api/tags/:tag', tag.getPostsByTag);
+
+	// 上传附件
+	app.post('/api/attachment', uploader.array('attachments'), attachment.upload);
 
 	// 未配置的路由返回404
 	app.all('*', error.error404);

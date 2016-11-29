@@ -83,4 +83,24 @@ module.exports = function (app) {
 			};
 		}
 	]);
+
+	// 读取文件
+	app.directive('fileReader', [
+		'$q',
+		function ($q) {
+			return {
+				restrict: 'A',
+				require: '?ngModel',
+				link: function (scope, element, attrs, ngModel) {
+					if (!ngModel) {
+						return;
+					}
+
+					element.bind('change', function (e) {
+	                    ngModel.$setViewValue(this.multiple ? this.files : this.files[0]);
+	                });
+				}
+			};
+		}
+	]);
 };

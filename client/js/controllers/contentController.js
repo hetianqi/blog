@@ -198,5 +198,44 @@ module.exports = function (app) {
 
 				$scope.age = age;
 			}
+		])
+		.controller('uploadCtrl', [
+			'$scope',
+			'Post',
+			'Attachment',
+			function ($scope, Post, Attachment) {
+				$scope.type = 'post';
+				$scope.selectPost = null;
+				$scope.selectAttachments = null;
+
+				$scope.submitUpload = function () {
+					if ($scope.type == 'post') {
+						uploadPost();
+					} else {
+						uploadAttachment();
+					}
+				};
+
+				function uploadPost() {
+					var formData = new FormData();
+					formData.append('post', $scope.selectPost);
+
+					Post.upload(formData, function (data) {
+						alert('上传成功');
+					});
+				}
+
+				function uploadAttachment() {
+					var formData = new FormData();
+
+					angular.forEach($scope.selectAttachments, function (attach) {
+						formData.append('attachments', attach);
+					});
+
+					Attachment.upload(formData, function (data) {
+						$scope.attachments = data.attachments;
+					});
+				}
+			}
 		]);
 };

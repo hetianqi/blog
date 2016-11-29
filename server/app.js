@@ -12,6 +12,7 @@ var favicon = require('serve-favicon');
 var path = require('path');
 var config = require('./lib/config');
 var util = require('./lib/util');
+var error = require('./lib/error');
 var db = require('./lib/db');
 
 var app = express();
@@ -33,6 +34,10 @@ app.use(function (req, res, next) {
 	} else {
 		util.renderPage(req, res);
 	}
+});
+// 错误处理
+app.use(function (err, req, res, next) {
+	error.serverError(res, err);
 });
 
 // 注册路由
