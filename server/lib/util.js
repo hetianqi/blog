@@ -134,36 +134,36 @@ exports.log = function (msg, type) {
 
 // 同步创建多级目录
 exports.mkdirsSync = function (dirpath, mode) {
-	var result = true;
-
-	// 统一目录分隔符
-	if (path.sep == '/') {
-		dirpath = dirpath.replace(/\\/g, path.sep);
-	} else {
-		dirpath = dirpath.replace(/\//g, path.sep);
-	}
-
-	// 如果目录不存
-	if (!existsSync(dirpath)) {
-		var pathtmp;
-		var pathArr = dirpath.split(path.sep);
-
-		for (var i in pathArr) {
-			if (pathtmp) {
-                pathtmp = path.join(pathtmp, pathArr[i]);
-            } else {
-                pathtmp = pathArr[i];
-            }
-            if (!existsSync(pathtmp)) {
-                if (!fs.mkdirSync(pathtmp, mode)) {
-                    result = false;
-                    break;
-                }
-            }
+	try {
+		// 统一目录分隔符
+		if (path.sep == '/') {
+			dirpath = dirpath.replace(/\\/g, path.sep);
+		} else {
+			dirpath = dirpath.replace(/\//g, path.sep);
 		}
-	}
 
-    return result; 
+		// 如果目录不存
+		if (!existsSync(dirpath)) {
+			var pathtmp;
+			var pathArr = dirpath.split(path.sep);
+
+			for (var i in pathArr) {
+				if (pathtmp) {
+	                pathtmp = path.join(pathtmp, pathArr[i]);
+	            } else {
+	                pathtmp = pathArr[i];
+	            }
+
+	            if (!existsSync(pathtmp)) {
+	            	fs.mkdirSync(pathtmp, mode);
+	            }
+			}
+		}
+
+		return true;
+	} catch (e) {
+		return false;
+	}
 };
 
 // 判断目录是否存在
