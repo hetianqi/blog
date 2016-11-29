@@ -21,11 +21,14 @@ var storage = multer.diskStorage({
 		var now = new Date();
 
 		uploadPath += now.getFullYear() + '/' + (now.getMonth() + 1);
-		util.mkdirsSync(uploadPath);
-		cb(null, uploadPath);
+
+		if (util.mkdirsSync(uploadPath)) {
+			cb(null, uploadPath);
+		} else {
+			util.log('创建文件夹失败');
+		}
 	},
 	filename: function (req, file, cb) {
-		console.log('filename');
 		cb(null, file.originalname);
 	}
 });
