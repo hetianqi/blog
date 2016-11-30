@@ -161,8 +161,6 @@ exports.mkdirsSync = function (dirpath, mode) {
 	                pathtmp = pathArr[i];
 	            }
 
-	            console.log(pathtmp);
-
 	            if (!existsSync(pathtmp)) {
 	            	fs.mkdirSync(pathtmp, mode);
 	            }			
