@@ -44,6 +44,7 @@ app.run([
 	    $rootScope.showAsideNav = false;
 		$rootScope.isCatelogActive = false;
 		$rootScope.isAsideFixed = false;
+		$rootScope.copyrightYear = new Date().getFullYear();
 
 		// 移动端顶部导航切换
 		$rootScope.toggleAsideNav = function (active) {
