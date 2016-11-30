@@ -221,7 +221,11 @@ module.exports = function (app) {
 					formData.append('post', $scope.selectPost);
 
 					Post.upload(formData, function (data) {
-						alert('上传成功');
+						if (data.code) {
+							alert(data.error);
+						} else {
+							alert('上传成功');
+						}
 					});
 				}
 
