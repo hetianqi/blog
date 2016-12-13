@@ -101,7 +101,7 @@ module.exports = function (app) {
 		.factory('Tag', [
 			'$resource',
 			function ($resource) {
-				var Tag = $resource('/api/tags/:tagId', null, {
+				var Tag = $resource('/api/tags/:tag', null, {
 					query: { isArray: false }
 				});
 
