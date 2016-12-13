@@ -118,7 +118,7 @@
 					<div class="post-catelog" ng-show="isCatelogActive">
 						<ol ng-show="catelogs.length">
 							<li ng-repeat="catelog in catelogs">
-								<a href="#{{catelog}}">{{$index + 1}}.{{catelog}}</a>
+								<a href="#post-title-{{catelog}}">{{$index + 1}}.{{catelog}}</a>
 							</li>
 						</ol>
 						<span ng-show="!catelogs.length">本文章暂无目录</span>

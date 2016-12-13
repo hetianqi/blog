@@ -40,7 +40,7 @@ Renderer.prototype.heading = function (text, level) {
     }
 
     // 返回标题锚点
-    return '<h' + level + ' id="' + id + '"><a href="#' + id + '" class="headerlink" title="' + stripHTML(text) + '"></a>' + text + '</h' + level + '>';
+    return '<h' + level + ' id="post-title-' + id + '">' + text + '</h' + level + '>';
 };
 
 // 代码高亮、行号处理

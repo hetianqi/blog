@@ -64,7 +64,7 @@ module.exports = function (app) {
 							$rootScope.showAsideNav = true;
 							$rootScope.isCatelogActive = true;
 
-							(data.post.content || '').replace(/\<h2\s+id=\"([^\"]+)\"\>/g, function (match, val) {
+							(data.post.content || '').replace(/\<h[1-6]\s+id=\"post-title-([^\"]+)\"\>/g, function (match, val) {
 								$rootScope.catelogs.push(val);
 							});
 						})

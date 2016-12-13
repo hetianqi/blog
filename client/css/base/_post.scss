@@ -1,5 +1,23 @@
 /* 代码高亮样式 */
 
+.post {
+    ul {
+        list-style-type: disc;
+    }
+
+    ol {
+        list-style-type: decimal;
+    }
+
+    ul, ol {
+        padding-left: 2em;
+    }
+
+    ul ul, ol ul {
+        list-style-type: circle;
+    }
+}
+
 .full-img {
     display: block;
 
