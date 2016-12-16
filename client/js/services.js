@@ -78,7 +78,7 @@ module.exports = function (app) {
 				var Post = $resource('/api/posts/:postId', null, {
 					query: { isArray: false },
 					getCounts: {
-						url: 'http://api.duoshuo.com/threads/counts.json',
+						url: 'http://emmett.duoshuo.com/api/threads/counts.json',
 						method: 'GET',
 						params: {
 							/* eslint camelcase: 0 */
