@@ -69,8 +69,9 @@ module.exports = function (app) {
 							});
 						})
 						.then(function () {
-							Post.getCounts({ threads: $scope.post.id }, function (counts) {
-								$scope.post.comments = counts.response[$scope.post.id].comments;
+							var thread = '/posts/' + $scope.post.id;
+							Post.getCounts({ threads: thread }, function (counts) {
+								$scope.post.comments = counts.response[thread].comments;
 							});
 							loadDuoshuo();
 						});
