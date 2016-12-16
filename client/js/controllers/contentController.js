@@ -34,8 +34,9 @@ module.exports = function (app) {
 						})
 						.then(function () {
 							$scope.posts.forEach(function (post) {
+								var thread = '/posts/' + post.id;
 								Post.getCounts({ threads: post.id }, function (counts) {
-									post.comments = counts.response[post.id].comments;
+									post.comments = counts.response[thread].comments;
 								});
 							});
 						});
