@@ -20,7 +20,6 @@ module.exports = function (app) {
 				.state('home', {
 					url: '/',
 					templateUrl: 'home.html'
-					// controller: 'postCtrl'
 				})
 				.state('detail', {
 					url: '/posts/:postId',
@@ -37,7 +36,8 @@ module.exports = function (app) {
 				.state('tags.detail', {
 					url: '/:tag',
 					views: {
-						// 采用绝对路径，在index.html中的ui-view中插入视图
+						// @ 表示绝对路径，@前面代表状态名称，@后面代表ui-view的值
+						// 这里表示插入到index.html的ui-view中
 						'@': {
 							templateUrl: 'tags.detail.html'
 						}

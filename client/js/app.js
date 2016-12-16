@@ -57,6 +57,7 @@ app.run([
 			    $rootScope.catelogs = [];
 			    $rootScope.showAsideNav = false;
 				$rootScope.isCatelogActive = false;
+				$rootScope.isAsideFixed = false;
 			}
 		});
     }
