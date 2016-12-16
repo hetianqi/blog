@@ -72,6 +72,9 @@ exports.getById = function (req, res) {
 	Post
 		.findOne({ id: req.params.postId })
 		.then(function (post) {
+			// 更新阅读次数并保存
+			post.times++;
+			post.save();
 			res.json({
 				post: post
 			});
