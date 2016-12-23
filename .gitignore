@@ -13,9 +13,5 @@ node_modules
 # scss-cache
 .sass-cache
 
-# compile
-/client/js/all.js
-/client/css/main.css
-
 # upload
 /client/upload
