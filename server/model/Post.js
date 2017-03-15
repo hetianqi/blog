@@ -1,6 +1,6 @@
 /**
  * Post model
- * @author Emmett <heron1991@163.com>
+ * @author hetianqi <heron1991@163.com>
  * @date 2016-08-04 16:53:24
  */
 

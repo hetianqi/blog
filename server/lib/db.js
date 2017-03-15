@@ -1,6 +1,6 @@
 /**
  * Mongodb 数据库连接
- * @author Emmett <heron1991@163.com>
+ * @author hetianqi <heron1991@163.com>
  * @date 2016-08-03 17:43:39
  */
 

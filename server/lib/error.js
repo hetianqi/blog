@@ -1,6 +1,6 @@
 /**
  * 错误处理集合
- * @author Emmett <heron1991@163.com>
+ * @author hetianqi <heron1991@163.com>
  * @date 2016-08-05 09:48:52
  */
 

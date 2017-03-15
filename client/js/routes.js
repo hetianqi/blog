@@ -1,6 +1,6 @@
 /**
  * angular-ui-router路由配置
- * @author Emmett <heron1991@163.com>
+ * @author hetianqi <heron1991@163.com>
  * @date 2016-07-14 17:08:53
  */
 

@@ -1,6 +1,6 @@
 /**
  * 工具类库
- * @author Emmett <heron1991@163.com>
+ * @author hetianqi <heron1991@163.com>
  * @date 2016-07-14 14:03:52
  */
 
